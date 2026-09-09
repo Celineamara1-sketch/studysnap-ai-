@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySnap AI – Smarter lernen</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #faf9ff;
+      color: #171725;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* NAVIGATION */
+
+    nav {
+      height: 76px;
+      max-width: 1160px;
+      margin: auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #6c4cff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      color: #686779;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      font-weight: 700;
+    }
+
+    .primary {
+      background: #6c4cff;
+      color: white;
+      padding: 14px 19px;
+      border-radius: 13px;
+      box-shadow: 0 8px 24px rgba(108,76,255,.22);
+    }
+
+    .secondary {
+      background: white;
+      border: 1px solid #e5e2ef;
+      padding: 14px 19px;
+      border-radius: 13px;
+      color: #171725;
+    }
+
+    /* HERO */
+
+    .hero {
+      max-width: 1160px;
+      margin: 40px auto;
+      padding: 30px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #eeeaff;
+      color: #5945d8;
+      padding: 8px 13px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: 62px;
+      line-height: 1.02;
+      letter-spacing: -3px;
+      margin: 20px 0;
+    }
+
+    .hero-text {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #686779;
+      max-width: 590px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .small-text {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #898797;
+    }
+
+    /* UPLOAD */
+
+    .upload-box {
+      background: white;
+      border: 1px solid #e8e5f2;
+      border-radius: 28px;
+      padding: 16px;
+      box-shadow: 0 25px 70px rgba(40,28,100,.10);
+    }
+
+    .drop-area {
+      min-height: 350px;
+      border: 2px dashed #d9d3f5;
+      border-radius: 21px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 25px;
+      background: #fbfaff;
+    }
+
+    .upload-icon {
+      font-size: 30px;
+      background: #eeeaff;
+      padding: 18px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+
+    .drop-area h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .drop-area p {
+      color: #777587;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    #fileName {
+      font-size: 12px;
+      margin-top: 14px;
+      color: #555268;
+    }
+
+    /* SECTIONS */
+
+    section {
+      max-width: 1160px;
+      margin: auto;
+      padding: 75px 24px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .kicker {
+      color: #6652dc;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    section h2 {
+      font-size: 42px;
+      letter-spacing: -1.7px;
+      margin: 10px 0;
+    }
+
+    .subtitle {
+      color: #6d6b7c;
+      max-width: 590px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    /* STEPS */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 38px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e8e5f2;
+      border-radius: 22px;
+      padding: 27px;
+      text-align: left;
+    }
+
+    .number {
+      color: #908ca0;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .emoji {
+      font-size: 28px;
+      margin: 15px 0;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+      font-size: 19px;
+    }
+
+    .card p {
+      color: #6d6b7c;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    /* DEMO */
+
+    .demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 38px;
+    }
+
+    .paper,
+    .quiz {
+      background: white;
+      border: 1px solid #e8e5f2;
+      border-radius: 24px;
+      padding: 28px;
+      text-align: left;
+    }
+
+    .paper-lines {
+      color: #777587;
+      line-height: 2;
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .question {
+      font-weight: 750;
+      margin: 20px 0;
+    }
+
+    .option {
+      border: 1px solid #e8e5f2;
+      border-radius: 12px;
+      padding: 11px;
+      margin: 8px 0;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background: #f4f1ff;
+      border-color: #6c4cff;
+    }
+
+    /* FEATURES */
+
+    .features {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* CTA */
+
+    .cta {
+      max-width: 1100px;
+      margin: 30px auto 75px;
+      background: #171725;
+      color: white;
+      border-radius: 30px;
+      padding: 58px 24px;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 42px;
+      margin: 10px 0;
+    }
+
+    .cta p {
+      color: #c8c6d3;
+      margin-bottom: 25px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid #e8e5f2;
+      padding: 28px 24px;
+      color: #777587;
+      font-size: 13px;
+    }
+
+    .footer-content {
+      max-width: 1160px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* MESSAGE */
+
+    .message {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translate(-50%, 30px);
+      opacity: 0;
+      background: #171725;
+      color: white;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-size: 13px;
+      transition: .3s;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* MOBILE */
+
+    @media(max-width:850px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      .cards,
+      .features,
+      .demo {
+        grid-template-columns: 1fr;
+      }
+
+      section h2,
+      .cta h2 {
+        font-size: 34px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+
+  <div class="logo">
+    StudySnap <span>AI ✦</span>
+  </div>
+
+  <div class="nav-links">
+    <a href="#how">So funktioniert's</a>
+    <a href="#features">Funktionen</a>
+    <a href="#demo">Demo</a>
+  </div>
+
+  <button class="primary" onclick="openUpload()">
+    Kostenlos starten →
+  </button>
+
+</nav>
+
+
+<!-- HERO -->
+
+<div class="hero">
+
+  <div>
+
+    <span class="badge">
+      ✨ KI-Lernen für Schüler
+    </span>
+
+    <h1>
+      Deine Notizen.<br>
+      Dein Quiz.<br>
+      Dein Lernplan.
+    </h1>
+
+    <p class="hero-text">
+      StudySnap AI verwandelt deine Lernzettel in verständliche
+      Lernmaterialien – damit du schneller und smarter lernen kannst.
+    </p>
+
+    <div class="actions">
+
+      <button class="primary" onclick="openUpload()">
+        📸 Lernzettel hochladen
+      </button>
+
+      <a href="#how">
+        <button class="secondary">
+          So funktioniert's ↓
+        </button>
+      </a>
+
+    </div>
+
+    <div class="small-text">
+      ✨ Einfach hochladen · Lernen · Fortschritt machen
+    </div>
+
+  </div>
+
+
+  <!-- UPLOAD -->
+
+  <div class="upload-box">
+
+    <div class="drop-area">
+
+      <div class="upload-icon">
+        📄
+      </div>
+
+      <h2>
+        Lernzettel hochladen
+      </h2>
+
+      <p>
+        JPG, PNG oder PDF – deine nächste Lernsession beginnt hier.
+      </p>
+
+      <input
+        id="fileInput"
+        type="file"
+        accept=".jpg,.jpeg,.png,.pdf"
+        hidden
+        onchange="fileSelected(this)"
+      >
+
+      <button
+        class="primary"
+        onclick="openUpload()"
+      >
+        Datei auswählen
+      </button>
+
+      <div id="fileName">
+        Noch keine Datei ausgewählt
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- HOW IT WORKS -->
+
+<section id="how" class="center">
+
+  <span class="kicker">
+    So funktioniert's
+  </span>
+
+  <h2>
+    Von Lernzettel zu Lernprofi.
+  </h2>
+
+  <p class="subtitle">
+    Drei einfache Schritte. Kein kompliziertes Setup.
+  </p>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <div class="number">01</div>
+
+      <div class="emoji">📸</div>
+
+      <h3>
+        Hochladen
+      </h3>
+
+      <p>
+        Lade ein Foto oder PDF deines Lernmaterials hoch.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="number">02</div>
+
+      <div class="emoji">🤖</div>
+
+      <h3>
+        StudySnap analysiert
+      </h3>
+
+      <p>
+        Die KI erkennt wichtige Inhalte und bereitet sie zum Lernen auf.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="number">03</div>
+
+      <div class="emoji">🧠</div>
+
+      <h3>
+        Lernen
+      </h3>
+
+      <p>
+        Teste dich mit Quizfragen und wiederhole die Inhalte gezielt.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DEMO -->
+
+<section id="demo" class="center">
+
+  <span class="kicker">
+    Beispiel
+  </span>
+
+  <h2>
+    Vorher → Nachher
+  </h2>
+
+  <p class="subtitle">
+    Aus einem normalen Lernzettel wird eine interaktive Lernsession.
+  </p>
+
+
+  <div class="demo">
+
+    <div class="paper">
+
+      <h3>
+        📄 Geschichts-Lernzettel
+      </h3>
+
+      <div class="paper-lines">
+
+        Römisches Reich<br>
+        Augustus<br>
+        Republik<br>
+        Kaiserzeit<br>
+        Senat<br>
+        ...
+
+      </div>
+
+    </div>
+
+
+    <div class="quiz">
+
+      <h3>
+        🧠 Dein StudySnap Quiz
+      </h3>
+
+      <div class="question">
+        Wer war Augustus?
+      </div>
+
+      <div class="option" onclick="answer(false)">
+        A) Ein römischer Kaiser
+      </div>
+
+      <div class="option" onclick="answer(false)">
+        B) Ein griechischer Philosoph
+      </div>
+
+      <div class="option" onclick="answer(false)">
+        C) Ein ägyptischer Pharao
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section id="features" class="center">
+
+  <span class="kicker">
+    Alles an einem Ort
+  </span>
+
+  <h2>
+    Smarter lernen.
+  </h2>
+
+
+  <div class="cards features">
+
+    <div class="card">
+
+      <div class="emoji">📝</div>
+
+      <h3>
+        Zusammenfassen
+      </h3>
+
+      <p>
+        Komplizierte Inhalte verständlich aufbereiten.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="emoji">🧠</div>
+
+      <h3>
+        Quiz erstellen
+      </h3>
+
+      <p>
+        Automatisch Fragen zum Üben erstellen.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="emoji">🗂️</div>
+
+      <h3>
+        Karteikarten
+      </h3>
+
+      <p>
+        Wichtige Begriffe schnell wiederholen.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="emoji">📅</div>
+
+      <h3>
+        Lernplan
+      </h3>
+
+      <p>
+        Deine Vorbereitung übersichtlich planen.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<div class="cta">
+
+  <span class="kicker">
+    StudySnap AI
+  </span>
+
+  <h2>
+    Bereit für deinen nächsten Lern-Snap?
+  </h2>
+
+  <p>
+    Lade deinen ersten Lernzettel hoch und probiere StudySnap aus.
+  </p>
+
+  <button class="primary" onclick="openUpload()">
+    Kostenlos starten →
+  </button>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="footer-content">
+
+    <span>
+      StudySnap AI ✦ — Smarter lernen. Weniger Stress.
+    </span>
+
+    <span>
+      © 2026 StudySnap AI
+    </span>
+
+  </div>
+
+</footer>
+
+
+<div id="message" class="message">
+  Datei ausgewählt!
+</div>
+
+
+<script>
+
+function openUpload() {
+
+  document.getElementById("fileInput").click();
+
+}
+
+
+function fileSelected(input) {
+
+  if (input.files.length > 0) {
+
+    const file = input.files[0];
+
+    document.getElementById("fileName").textContent =
+      "✓ " + file.name;
+
+    showMessage(
+      "Lernzettel ausgewählt! 🤖"
+    );
+
+  }
+
+}
+
+
+function answer(correct) {
+
+  if (correct) {
+
+    showMessage(
+      "Richtig! 🎉"
+    );
+
+  } else {
+
+    showMessage(
+      "Das ist nur eine Demo – die echte KI kommt als Nächstes."
+    );
+
+  }
+
+}
+
+
+function showMessage(text) {
+
+  const message =
+    document.getElementById("message");
+
+  message.textContent = text;
+
+  message.classList.add("show");
+
+  setTimeout(function() {
+
+    message.classList.remove("show");
+
+  }, 3000);
+
+}
+
+</script>
+
+</body>
+</html>
