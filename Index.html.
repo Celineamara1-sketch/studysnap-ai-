@@ -832,5 +832,30 @@ function showMessage(text) {
 
 </script>
 
+<section id="meine-galerie" style="padding:40px 20px; max-width:1000px; margin:auto;">
+  <h2>📚 Meine Lernzettel</h2>
+  <p>Lade deine Lernzettel hoch und behalte sie hier im Überblick.</p>
+
+  <input type="file" id="galleryUpload" accept="image/*,.pdf" multiple>
+  <div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-top:25px;"></div>
+</section>
+
+<script>
+const upload = document.getElementById("galleryUpload");
+<script>
+const upload = document.getElementById("galleryUpload");
+const gallery = document.getElementById("gallery");
+
+upload.addEventListener("change", () => {
+  [...upload.files].forEach(file => {
+    const card = document.createElement("div");
+    card.style.padding = "15px";
+    card.style.borderRadius = "15px";
+    card.innerHTML = `<strong>📄 ${file.name}</strong>`;
+    gallery.appendChild(card);
+  });
+});
+</script>
+
 </body>
 </html>
