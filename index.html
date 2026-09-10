@@ -12,31 +12,70 @@
       padding: 0;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #faf9ff;
-      color: #171725;
-    }
-
     html {
       scroll-behavior: smooth;
     }
 
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f7fb;
+      color: #171725;
+      line-height: 1.5;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     /* NAVIGATION */
 
-    nav {
-      height: 76px;
-      max-width: 1160px;
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid #e9e9f0;
+    }
+
+    .nav-inner {
+      max-width: 1180px;
       margin: auto;
-      padding: 0 24px;
+      padding: 16px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 20px;
     }
 
     .logo {
-      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
       font-weight: 800;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: #6c4cff;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(108,76,255,0.25);
     }
 
     .logo span {
@@ -45,346 +84,757 @@
 
     .nav-links {
       display: flex;
-      gap: 30px;
-      color: #686779;
+      gap: 26px;
+      align-items: center;
+      color: #606071;
       font-size: 14px;
+      font-weight: 600;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: inherit;
+    .nav-links a:hover {
+      color: #6c4cff;
     }
 
-    button {
-      cursor: pointer;
-      border: none;
-      font-weight: 700;
-    }
-
-    .primary {
-      background: #6c4cff;
+    .nav-button {
+      background: #171725;
       color: white;
-      padding: 14px 19px;
-      border-radius: 13px;
-      box-shadow: 0 8px 24px rgba(108,76,255,.22);
-    }
-
-    .secondary {
-      background: white;
-      border: 1px solid #e5e2ef;
-      padding: 14px 19px;
-      border-radius: 13px;
-      color: #171725;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 11px;
+      font-weight: 700;
     }
 
     /* HERO */
 
     .hero {
-      max-width: 1160px;
-      margin: 40px auto;
-      padding: 30px 24px 80px;
+      max-width: 1180px;
+      margin: auto;
+      padding: 80px 22px 55px;
       display: grid;
-      grid-template-columns: 1fr .9fr;
-      gap: 70px;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 55px;
       align-items: center;
     }
 
     .badge {
-      display: inline-block;
+      display: inline-flex;
+      padding: 7px 12px;
+      border-radius: 999px;
       background: #eeeaff;
-      color: #5945d8;
-      padding: 8px 13px;
-      border-radius: 50px;
-      font-size: 12px;
+      color: #6046e8;
+      font-size: 13px;
       font-weight: 800;
+      margin-bottom: 18px;
     }
 
-    h1 {
-      font-size: 62px;
-      line-height: 1.02;
-      letter-spacing: -3px;
-      margin: 20px 0;
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 68px);
+      line-height: 1.03;
+      letter-spacing: -2.5px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: #6c4cff;
     }
 
     .hero-text {
+      color: #686878;
       font-size: 18px;
-      line-height: 1.6;
-      color: #686779;
-      max-width: 590px;
+      max-width: 580px;
+      margin-bottom: 30px;
     }
 
-    .actions {
+    .hero-buttons {
       display: flex;
       gap: 12px;
-      margin-top: 26px;
+      flex-wrap: wrap;
     }
 
-    .small-text {
-      margin-top: 14px;
+    .primary-btn {
+      border: none;
+      background: #6c4cff;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 13px;
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(108,76,255,0.25);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .secondary-btn {
+      border: 1px solid #dedee8;
+      background: white;
+      color: #272735;
+      padding: 14px 20px;
+      border-radius: 13px;
+      font-weight: 800;
+    }
+
+    /* APP PREVIEW */
+
+    .app-preview {
+      background: white;
+      border: 1px solid #e8e8f0;
+      border-radius: 25px;
+      padding: 18px;
+      box-shadow: 0 25px 70px rgba(30,30,60,0.10);
+    }
+
+    .preview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .preview-title {
+      font-weight: 800;
+    }
+
+    .small-dot {
+      width: 10px;
+      height: 10px;
+      background: #65d89b;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .preview-layout {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 15px;
+    }
+
+    .preview-sidebar {
+      background: #f6f5fb;
+      border-radius: 17px;
+      padding: 12px;
+    }
+
+    .side-item {
+      padding: 10px;
+      border-radius: 9px;
+      margin-bottom: 5px;
       font-size: 12px;
-      color: #898797;
+      color: #777787;
+    }
+
+    .side-item.active {
+      background: #e9e5ff;
+      color: #6046e8;
+      font-weight: 800;
+    }
+
+    .preview-main {
+      background: #fafafd;
+      border-radius: 17px;
+      padding: 18px;
+    }
+
+    .preview-main h3 {
+      margin-bottom: 13px;
+    }
+
+    .fake-upload {
+      border: 2px dashed #cfc9ff;
+      border-radius: 15px;
+      padding: 25px 10px;
+      text-align: center;
+      color: #777787;
+      background: #fbfaff;
+      margin-bottom: 14px;
+    }
+
+    .fake-upload strong {
+      display: block;
+      color: #6046e8;
+      margin-bottom: 4px;
+    }
+
+    .preview-cards {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 10px;
+    }
+
+    .mini-card {
+      background: white;
+      border: 1px solid #ececf2;
+      border-radius: 13px;
+      padding: 13px;
+      font-size: 12px;
+    }
+
+    .mini-number {
+      font-size: 20px;
+      font-weight: 900;
+      color: #6c4cff;
+    }
+
+    /* SECTIONS */
+
+    .section {
+      max-width: 1180px;
+      margin: auto;
+      padding: 70px 22px;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 40px;
+    }
+
+    .section-heading h2 {
+      font-size: 38px;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+
+    .section-heading p {
+      color: #707080;
+    }
+
+    /* DASHBOARD */
+
+    .dashboard {
+      background: white;
+      border: 1px solid #e8e8f0;
+      border-radius: 24px;
+      padding: 25px;
+      box-shadow: 0 18px 50px rgba(30,30,60,0.07);
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .dashboard-header h2 {
+      font-size: 25px;
+    }
+
+    .dashboard-header p {
+      color: #777787;
+      font-size: 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: #f8f8fc;
+      border: 1px solid #ededf3;
+      border-radius: 17px;
+      padding: 18px;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+
+    .stat-label {
+      color: #777787;
+      font-size: 13px;
     }
 
     /* UPLOAD */
 
     .upload-box {
-      background: white;
-      border: 1px solid #e8e5f2;
-      border-radius: 28px;
-      padding: 16px;
-      box-shadow: 0 25px 70px rgba(40,28,100,.10);
-    }
-
-    .drop-area {
-      min-height: 350px;
-      border: 2px dashed #d9d3f5;
-      border-radius: 21px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 25px;
+      border: 2px dashed #cfc9ff;
       background: #fbfaff;
+      border-radius: 20px;
+      padding: 35px 20px;
+      text-align: center;
+      margin-bottom: 28px;
     }
 
     .upload-icon {
-      font-size: 30px;
-      background: #eeeaff;
-      padding: 18px;
-      border-radius: 20px;
-      margin-bottom: 15px;
-    }
-
-    .drop-area h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .drop-area p {
-      color: #777587;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    #fileName {
-      font-size: 12px;
-      margin-top: 14px;
-      color: #555268;
-    }
-
-    /* SECTIONS */
-
-    section {
-      max-width: 1160px;
-      margin: auto;
-      padding: 75px 24px;
-    }
-
-    .center {
-      text-align: center;
-    }
-
-    .kicker {
-      color: #6652dc;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-    }
-
-    section h2 {
-      font-size: 42px;
-      letter-spacing: -1.7px;
-      margin: 10px 0;
-    }
-
-    .subtitle {
-      color: #6d6b7c;
-      max-width: 590px;
-      margin: auto;
-      line-height: 1.6;
-    }
-
-    /* STEPS */
-
-    .cards {
+      width: 55px;
+      height: 55px;
+      border-radius: 17px;
+      background: #ebe8ff;
+      color: #6c4cff;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 38px;
+      place-items: center;
+      margin: 0 auto 14px;
+      font-size: 24px;
+      font-weight: 900;
     }
 
-    .card {
-      background: white;
-      border: 1px solid #e8e5f2;
-      border-radius: 22px;
-      padding: 27px;
-      text-align: left;
+    .upload-box h3 {
+      margin-bottom: 5px;
     }
 
-    .number {
-      color: #908ca0;
-      font-size: 12px;
+    .upload-box p {
+      color: #777787;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .file-label {
+      display: inline-block;
+      background: #6c4cff;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 11px;
       font-weight: 800;
-    }
-
-    .emoji {
-      font-size: 28px;
-      margin: 15px 0;
-    }
-
-    .card h3 {
-      margin-bottom: 8px;
-      font-size: 19px;
-    }
-
-    .card p {
-      color: #6d6b7c;
-      line-height: 1.55;
-      font-size: 14px;
-    }
-
-    /* DEMO */
-
-    .demo {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 38px;
-    }
-
-    .paper,
-    .quiz {
-      background: white;
-      border: 1px solid #e8e5f2;
-      border-radius: 24px;
-      padding: 28px;
-      text-align: left;
-    }
-
-    .paper-lines {
-      color: #777587;
-      line-height: 2;
-      margin-top: 18px;
-      font-size: 14px;
-    }
-
-    .question {
-      font-weight: 750;
-      margin: 20px 0;
-    }
-
-    .option {
-      border: 1px solid #e8e5f2;
-      border-radius: 12px;
-      padding: 11px;
-      margin: 8px 0;
-      font-size: 14px;
       cursor: pointer;
     }
 
-    .option:hover {
-      background: #f4f1ff;
+    .file-label:hover {
+      background: #5940df;
+    }
+
+    .file-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    #selectedFiles {
+      margin-top: 15px;
+      color: #686878;
+      font-size: 13px;
+    }
+
+    /* GALLERY */
+
+    .gallery-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 17px;
+      gap: 15px;
+    }
+
+    .gallery-head h3 {
+      font-size: 20px;
+    }
+
+    .search {
+      border: 1px solid #dedee8;
+      background: white;
+      border-radius: 10px;
+      padding: 10px 13px;
+      outline: none;
+      width: 190px;
+    }
+
+    .search:focus {
       border-color: #6c4cff;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
+    }
+
+    .note-card {
+      border: 1px solid #e8e8f0;
+      border-radius: 17px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .note-preview {
+      height: 130px;
+      background: #f2f1f7;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .note-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pdf-preview {
+      color: #6c4cff;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .note-info {
+      padding: 14px;
+    }
+
+    .note-name {
+      font-weight: 800;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 9px;
+    }
+
+    .note-actions {
+      display: flex;
+      gap: 7px;
+    }
+
+    .small-btn {
+      border: 1px solid #dedee8;
+      background: white;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .small-btn.learn {
+      background: #6c4cff;
+      color: white;
+      border-color: #6c4cff;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 35px;
+      text-align: center;
+      color: #858594;
+      background: #fafafd;
+      border-radius: 15px;
+      border: 1px dashed #dddde7;
     }
 
     /* FEATURES */
 
     .features {
-      grid-template-columns: repeat(4, 1fr);
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 16px;
+    }
+
+    .feature {
+      background: white;
+      border: 1px solid #e8e8f0;
+      border-radius: 19px;
+      padding: 23px;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #eeeaff;
+      color: #6046e8;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .feature h3 {
+      margin-bottom: 7px;
+    }
+
+    .feature p {
+      color: #777787;
+      font-size: 14px;
+    }
+
+    /* QUIZ */
+
+    .quiz-area {
+      background: #171725;
+      color: white;
+      border-radius: 25px;
+      padding: 35px;
+    }
+
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .quiz-label {
+      color: #bcb7ff;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .quiz-question {
+      font-size: 25px;
+      font-weight: 800;
+      margin: 10px 0 22px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+    }
+
+    .answer {
+      width: 100%;
+      text-align: left;
+      border: 1px solid #383849;
+      background: #232334;
+      color: white;
+      border-radius: 12px;
+      padding: 13px;
+    }
+
+    .answer:hover {
+      border-color: #8a75ff;
+    }
+
+    .answer.correct {
+      background: #183a2b;
+      border-color: #4bd394;
+    }
+
+    .answer.wrong {
+      background: #42252a;
+      border-color: #e47784;
+    }
+
+    .quiz-result {
+      min-height: 25px;
+      margin-top: 15px;
+      font-weight: 700;
+    }
+
+    .quiz-next {
+      margin-top: 18px;
+      border: none;
+      background: white;
+      color: #171725;
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-weight: 800;
+    }
+
+    /* FLASHCARDS */
+
+    .flashcard-box {
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .flashcard {
+      min-height: 220px;
+      background: white;
+      border: 1px solid #e6e6ef;
+      border-radius: 22px;
+      padding: 35px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 15px 40px rgba(30,30,60,0.07);
+    }
+
+    .flashcard small {
+      color: #777787;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .flashcard-word {
+      font-size: 29px;
+      font-weight: 900;
+      color: #6c4cff;
+    }
+
+    .flashcard-answer {
+      margin-top: 10px;
+      color: #656575;
+      min-height: 25px;
+    }
+
+    .flash-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    /* MOTIVATION */
+
+    .motivation {
+      background: #eeeaff;
+      border-radius: 22px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .motivation h2 {
+      margin-bottom: 8px;
+    }
+
+    .motivation p {
+      color: #686878;
+    }
+
+    .progress-bar {
+      max-width: 500px;
+      margin: 20px auto 8px;
+      height: 12px;
+      background: white;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 42%;
+      height: 100%;
+      background: #6c4cff;
+      border-radius: 999px;
     }
 
     /* CTA */
 
     .cta {
-      max-width: 1100px;
-      margin: 30px auto 75px;
-      background: #171725;
+      background: #6c4cff;
       color: white;
-      border-radius: 30px;
-      padding: 58px 24px;
+      border-radius: 25px;
       text-align: center;
+      padding: 50px 25px;
     }
 
     .cta h2 {
-      font-size: 42px;
-      margin: 10px 0;
+      font-size: 36px;
+      margin-bottom: 10px;
     }
 
     .cta p {
-      color: #c8c6d3;
-      margin-bottom: 25px;
+      opacity: 0.9;
+      margin-bottom: 22px;
+    }
+
+    .cta button {
+      border: none;
+      background: white;
+      color: #6c4cff;
+      padding: 13px 20px;
+      border-radius: 11px;
+      font-weight: 900;
     }
 
     /* FOOTER */
 
     footer {
-      border-top: 1px solid #e8e5f2;
-      padding: 28px 24px;
-      color: #777587;
+      border-top: 1px solid #e5e5ec;
+      padding: 30px 22px;
+      margin-top: 30px;
+      color: #777787;
       font-size: 13px;
     }
 
-    .footer-content {
-      max-width: 1160px;
+    .footer-inner {
+      max-width: 1180px;
       margin: auto;
       display: flex;
       justify-content: space-between;
+      gap: 20px;
     }
 
-    /* MESSAGE */
+    /* TOAST */
 
-    .message {
+    .toast {
       position: fixed;
-      left: 50%;
-      bottom: 24px;
-      transform: translate(-50%, 30px);
-      opacity: 0;
+      right: 20px;
+      bottom: 20px;
       background: #171725;
       color: white;
-      padding: 13px 18px;
-      border-radius: 14px;
-      font-size: 13px;
-      transition: .3s;
+      padding: 13px 17px;
+      border-radius: 12px;
+      opacity: 0;
+      transform: translateY(15px);
+      pointer-events: none;
+      transition: 0.25s;
+      z-index: 200;
+      font-size: 14px;
     }
 
-    .message.show {
+    .toast.show {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translateY(0);
     }
 
     /* MOBILE */
 
-    @media(max-width:850px) {
+    @media (max-width: 850px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 55px;
+      }
+
+      .features {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .stats {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2,1fr);
+      }
 
       .nav-links {
         display: none;
       }
+    }
 
-      .hero {
+    @media (max-width: 560px) {
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .preview-layout {
         grid-template-columns: 1fr;
-        gap: 35px;
       }
 
-      h1 {
-        font-size: 48px;
+      .preview-sidebar {
+        display: none;
       }
 
-      .cards,
       .features,
-      .demo {
+      .gallery,
+      .stats {
         grid-template-columns: 1fr;
       }
 
-      section h2,
-      .cta h2 {
-        font-size: 34px;
+      .dashboard-header,
+      .gallery-head,
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
-      .footer-content {
-        flex-direction: column;
-        gap: 10px;
+      .search {
+        width: 100%;
+      }
+
+      .quiz-area {
+        padding: 23px;
+      }
+
+      .section {
+        padding: 50px 16px;
       }
     }
   </style>
@@ -392,446 +842,384 @@
 
 <body>
 
-<!-- NAVIGATION -->
+  <!-- NAVIGATION -->
 
-<nav>
+  <nav class="nav">
+    <div class="nav-inner">
 
-  <div class="logo">
-    StudySnap <span>AI ✦</span>
-  </div>
-
-  <div class="nav-links">
-    <a href="#how">So funktioniert's</a>
-    <a href="#features">Funktionen</a>
-    <a href="#demo">Demo</a>
-  </div>
-
-  <button class="primary" onclick="openUpload()">
-    Kostenlos starten →
-  </button>
-
-</nav>
-
-
-<!-- HERO -->
-
-<div class="hero">
-
-  <div>
-
-    <span class="badge">
-      ✨ KI-Lernen für Schüler
-    </span>
-
-    <h1>
-      Deine Notizen.<br>
-      Dein Quiz.<br>
-      Dein Lernplan.
-    </h1>
-
-    <p class="hero-text">
-      StudySnap AI verwandelt deine Lernzettel in verständliche
-      Lernmaterialien – damit du schneller und smarter lernen kannst.
-    </p>
-
-    <div class="actions">
-
-      <button class="primary" onclick="openUpload()">
-        📸 Lernzettel hochladen
-      </button>
-
-      <a href="#how">
-        <button class="secondary">
-          So funktioniert's ↓
-        </button>
+      <a href="#" class="logo">
+        <div class="logo-icon">S</div>
+        <div>StudySnap <span>AI</span></div>
       </a>
 
-    </div>
-
-    <div class="small-text">
-      ✨ Einfach hochladen · Lernen · Fortschritt machen
-    </div>
-
-  </div>
-
-
-  <!-- UPLOAD -->
-
-  <div class="upload-box">
-
-    <div class="drop-area">
-
-      <div class="upload-icon">
-        📄
+      <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#galerie">Meine Lernzettel</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#funktionen">Funktionen</a>
       </div>
 
-      <h2>
-        Lernzettel hochladen
-      </h2>
-
-      <p>
-        JPG, PNG oder PDF – deine nächste Lernsession beginnt hier.
-      </p>
-
-      <input
-        id="fileInput"
-        type="file"
-        accept=".jpg,.jpeg,.png,.pdf"
-        hidden
-         onchange="fileSelected (this)">
-    
-     
-
-      <button
-        class="primary"
-        onclick="openUpload()"
-      >
-        Datei auswählen
+      <button class="nav-button" onclick="scrollToUpload()">
+        Starten
       </button>
 
-      <div id="fileName">
-        Noch keine Datei ausgewählt
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+
+  <header class="hero">
+
+    <div>
+
+      <div class="badge">
+        Dein smarter Lernbegleiter
       </div>
 
-    </div>
+      <h1>
+        Deine Notizen.<br>
+        Dein <span>Quiz.</span><br>
+        Dein Lernplan.
+      </h1>
 
-  </div>
-
-</div>
-
-
-<!-- HOW IT WORKS -->
-
-<section id="how" class="center">
-
-  <span class="kicker">
-    So funktioniert's
-  </span>
-
-  <h2>
-    Von Lernzettel zu Lernprofi.
-  </h2>
-
-  <p class="subtitle">
-    Drei einfache Schritte. Kein kompliziertes Setup.
-  </p>
-
-
-  <div class="cards">
-
-    <div class="card">
-
-      <div class="number">01</div>
-
-      <div class="emoji">📸</div>
-
-      <h3>
-        Hochladen
-      </h3>
-
-      <p>
-        Lade ein Foto oder PDF deines Lernmaterials hoch.
+      <p class="hero-text">
+        StudySnap AI verwandelt deine Lernzettel in übersichtliche
+        Lernmaterialien – damit du einfacher, strukturierter und
+        smarter lernen kannst.
       </p>
 
-    </div>
+      <div class="hero-buttons">
 
+        <button class="primary-btn" onclick="scrollToUpload()">
+          Lernzettel hochladen
+        </button>
 
-    <div class="card">
-
-      <div class="number">02</div>
-
-      <div class="emoji">🤖</div>
-
-      <h3>
-        StudySnap analysiert
-      </h3>
-
-      <p>
-        Die KI erkennt wichtige Inhalte und bereitet sie zum Lernen auf.
-      </p>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="number">03</div>
-
-      <div class="emoji">🧠</div>
-
-      <h3>
-        Lernen
-      </h3>
-
-      <p>
-        Teste dich mit Quizfragen und wiederhole die Inhalte gezielt.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- DEMO -->
-
-<section id="demo" class="center">
-
-  <span class="kicker">
-    Beispiel
-  </span>
-
-  <h2>
-    Vorher → Nachher
-  </h2>
-
-  <p class="subtitle">
-    Aus einem normalen Lernzettel wird eine interaktive Lernsession.
-  </p>
-
-
-  <div class="demo">
-
-    <div class="paper">
-
-      <h3>
-        📄 Geschichts-Lernzettel
-      </h3>
-
-      <div class="paper-lines">
-
-        Römisches Reich<br>
-        Augustus<br>
-        Republik<br>
-        Kaiserzeit<br>
-        Senat<br>
-        ...
+        <a href="#funktionen" class="secondary-btn">
+          So funktioniert's
+        </a>
 
       </div>
 
     </div>
 
 
-    <div class="quiz">
+    <!-- APP PREVIEW -->
 
-      <h3>
-        🧠 Dein StudySnap Quiz
-      </h3>
+    <div class="app-preview">
 
-      <div class="question">
-        Wer war Augustus?
+      <div class="preview-top">
+        <div class="preview-title">StudySnap Dashboard</div>
+        <span class="small-dot"></span>
       </div>
 
-      <div class="option" onclick="answer(false)">
-        A) Ein römischer Kaiser
-      </div>
+      <div class="preview-layout">
 
-      <div class="option" onclick="answer(false)">
-        B) Ein griechischer Philosoph
-      </div>
+        <div class="preview-sidebar">
 
-      <div class="option" onclick="answer(false)">
-        C) Ein ägyptischer Pharao
+          <div class="side-item active">Dashboard</div>
+          <div class="side-item">Lernzettel</div>
+          <div class="side-item">Quiz</div>
+          <div class="side-item">Karteikarten</div>
+          <div class="side-item">Fortschritt</div>
+
+        </div>
+
+        <div class="preview-main">
+
+          <h3>Willkommen zurück 👋</h3>
+
+          <div class="fake-upload">
+            <strong>Lernzettel hinzufügen</strong>
+            Bild oder PDF auswählen
+          </div>
+
+          <div class="preview-cards">
+
+            <div class="mini-card">
+              <div class="mini-number">12</div>
+              Lernzettel
+            </div>
+
+            <div class="mini-card">
+              <div class="mini-number">48</div>
+              Quizfragen
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
 
-  </div>
-
-</section>
+  </header>
 
 
-<!-- FEATURES -->
+  <!-- DASHBOARD -->
 
-<section id="features" class="center">
+  <section class="section" id="dashboard">
 
-  <span class="kicker">
-    Alles an einem Ort
-  </span>
+    <div class="section-heading">
+      <h2>Dein Lernbereich</h2>
+      <p>
+        Alles, was du zum Lernen brauchst, an einem Ort.
+      </p>
+    </div>
 
-  <h2>
-    Smarter lernen.
-  </h2>
+    <div class="dashboard">
+
+      <div class="dashboard-header">
+
+        <div>
+          <h2>Mein Dashboard</h2>
+          <p>Behalte deinen Lernfortschritt im Blick.</p>
+        </div>
+
+        <button class="primary-btn" onclick="scrollToUpload()">
+          + Lernzettel
+        </button>
+
+      </div>
 
 
-  <div class="cards features">
+      <div class="stats">
 
-    <div class="card">
+        <div class="stat">
+          <div class="stat-number" id="noteCount">0</div>
+          <div class="stat-label">Lernzettel</div>
+        </div>
 
-      <div class="emoji">📝</div>
+        <div class="stat">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Quizfragen</div>
+        </div>
 
-      <h3>
-        Zusammenfassen
-      </h3>
+        <div class="stat">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Karteikarten</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number">42%</div>
+          <div class="stat-label">Lernfortschritt</div>
+        </div>
+
+      </div>
+
+
+      <!-- UPLOAD -->
+
+      <div class="upload-box" id="upload">
+
+        <div class="upload-icon">↑</div>
+
+        <h3>Lernzettel hochladen</h3>
+
+        <p>
+          Lade Bilder oder PDF-Dateien hoch und behalte sie
+          übersichtlich in deiner Galerie.
+        </p>
+
+        <label for="fileInput" class="file-label">
+          Datei auswählen
+        </label>
+
+        <input
+          id="fileInput"
+          class="file-input"
+          type="file"
+          accept=".jpg,.jpeg,.png,.pdf"
+          multiple
+        >
+
+        <div id="selectedFiles">
+          Noch keine Datei ausgewählt
+        </div>
+
+      </div>
+
+
+      <!-- GALLERY -->
+
+      <div id="galerie">
+
+        <div class="gallery-head">
+
+          <h3>Meine Lernzettel</h3>
+
+          <input
+            id="searchInput"
+            class="search"
+            type="search"
+            placeholder="Lernzettel suchen..."
+          >
+
+        </div>
+
+        <div class="gallery" id="gallery">
+
+          <div class="empty">
+            Noch keine Lernzettel vorhanden.<br>
+            Lade oben deinen ersten Lernzettel hoch.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+
+  <section class="section" id="funktionen">
+
+    <div class="section-heading">
+
+      <h2>Alles fürs Lernen</h2>
 
       <p>
-        Komplizierte Inhalte verständlich aufbereiten.
+        StudySnap soll aus deinen Lernzetteln mehr machen
+        als nur eine Datei.
       </p>
 
     </div>
 
 
-    <div class="card">
+    <div class="features">
 
-      <div class="emoji">🧠</div>
+      <div class="feature">
 
-      <h3>
-        Quiz erstellen
-      </h3>
+        <div class="feature-icon">AI</div>
+
+        <h3>Zusammenfassen</h3>
+
+        <p>
+          Lernstoff später automatisch kurz und verständlich
+          zusammenfassen lassen.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">?</div>
+
+        <h3>Quiz erstellen</h3>
+
+        <p>
+          Aus deinen Notizen entstehen passende Fragen
+          zum Üben.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">★</div>
+
+        <h3>Karteikarten</h3>
+
+        <p>
+          Wichtige Begriffe und Antworten übersichtlich
+          als Karteikarten lernen.
+        </p>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">✓</div>
+
+        <h3>Lernfortschritt</h3>
+
+        <p>
+          Sieh, wie viele Aufgaben du bereits geschafft hast
+          und was noch vor dir liegt.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- QUIZ -->
+
+  <section class="section" id="quiz">
+
+    <div class="section-heading">
+
+      <h2>Mini-Quiz</h2>
 
       <p>
-        Automatisch Fragen zum Üben erstellen.
+        Teste direkt hier, wie StudySnap sich anfühlen soll.
       </p>
 
     </div>
 
 
-    <div class="card">
+    <div class="quiz-area">
 
-      <div class="emoji">🗂️</div>
+      <div class="quiz-top">
 
-      <h3>
-        Karteikarten
-      </h3>
+        <div>
+          <div class="quiz-label">Beispiel Quiz</div>
+          <div id="quizProgress">Frage 1 von 3</div>
+        </div>
+
+        <div id="quizScore">
+          0 Punkte
+        </div>
+
+      </div>
+
+
+      <div id="quizQuestion" class="quiz-question">
+        Was ist die Hauptstadt von Frankreich?
+      </div>
+
+
+      <div id="answers" class="answers"></div>
+
+      <div id="quizResult" class="quiz-result"></div>
+
+      <button
+        id="nextButton"
+        class="quiz-next"
+        onclick="nextQuestion()"
+        style="display:none;"
+      >
+        Nächste Frage
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- FLASHCARDS -->
+
+  <section class="section">
+
+    <div class="section-heading">
+
+      <h2>Karteikarten</h2>
 
       <p>
-        Wichtige Begriffe schnell wiederholen.
+        Eine einfache Demo für dein späteres Lernsystem.
       </p>
 
     </div>
 
 
-    <div class="card">
-
-      <div class="emoji">📅</div>
-
-      <h3>
-        Lernplan
-      </h3>
-
-      <p>
-        Deine Vorbereitung übersichtlich planen.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CTA -->
-
-<div class="cta">
-
-  <span class="kicker">
-    StudySnap AI
-  </span>
-
-  <h2>
-    Bereit für deinen nächsten Lern-Snap?
-  </h2>
-
-  <p>
-    Lade deinen ersten Lernzettel hoch und probiere StudySnap aus.
-  </p>
-
-  <button class="primary" onclick="openUpload()">
-    Kostenlos starten →
-  </button>
-
-</div>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-  <div class="footer-content">
-
-    <span>
-      StudySnap AI ✦ — Smarter lernen. Weniger Stress.
-    </span>
-
-    <span>
-      © 2026 StudySnap AI
-    </span>
-
-  </div>
-
-</footer>
-
-
-<div id="message" class="message">
-  Datei ausgewählt!
-</div>
-
-
-<script>
-
-function openUpload() {
-
-  document.getElementById("fileInput").click();
-
-}
-
-
-function fileSelected(input) {
-
-  if (input.files.length > 0) {
-
-    const file = input.files[0];
-
-    document.getElementById("fileName").textContent =
-      "✓ " + file.name;
-
-    showMessage(
-      "Lernzettel ausgewählt! 🤖"
-    );
-
-  }
-
-}
-
-
-function answer(correct) {
-
-  if (correct) {
-
-    showMessage(
-      "Richtig! 🎉"
-    );
-
-  } else {
-
-    showMessage(
-      "Das ist nur eine Demo – die echte KI kommt als Nächstes."
-    );
-
-  }
-
-}
-
-
-function showMessage(text) {
-
-  const message =
-    document.getElementById("message");
-
-  message.textContent = text;
-
-  message.classList.add("show");
-
-  setTimeout(function() {
-
-    message.classList.remove("show");
-
-  }, 3000);
-
-}
-
-</script>
-
-</body>
-</html>
+    <div class="flashcard-box">
+        <
