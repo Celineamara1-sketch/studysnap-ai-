@@ -3,655 +3,1014 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f7f7f5">
-<title>StudySnap AI – Smarter lernen</title>
+<title>StudySnap AI</title>
 
 <style>
-:root{
-  --bg:#f7f7f5;
-  --surface:#ffffff;
-  --surface-2:#f1f1ee;
-  --text:#20211f;
-  --muted:#777a74;
-  --line:#e7e7e2;
-  --accent:#5d55e8;
-  --accent-soft:#ecebff;
-  --green:#3d8b68;
-  --shadow:0 10px 35px rgba(30,30,25,.07);
-}
-
 *{
   box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --text:#171923;
+  --muted:#777b87;
+  --border:#e8e9ef;
+  --primary:#6257e8;
+  --primary-light:#eeecff;
+  --green:#35a86b;
+  --orange:#ef9b45;
+  --red:#e95d67;
+  --shadow:0 8px 30px rgba(30,30,60,.06);
 }
 
 body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-button,
-input,
-textarea{
-  font:inherit;
+button,input,textarea,select{
+  font:inherit;
 }
 
 button{
-  cursor:pointer;
+  cursor:pointer;
+  border:none;
 }
 
 .app{
-  min-height:100vh;
+  display:flex;
+  min-height:100vh;
 }
 
 /* SIDEBAR */
-
 .sidebar{
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  width:245px;
-  background:#fff;
-  border-right:1px solid var(--line);
-  padding:25px 18px;
-  display:flex;
-  flex-direction:column;
-  z-index:10;
+  width:245px;
+  background:#fff;
+  border-right:1px solid var(--border);
+  padding:25px 16px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:20;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:20px;
-  font-weight:800;
-  margin-bottom:35px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 10px 30px;
+  font-size:20px;
+  font-weight:800;
 }
 
-.logo-mark{
-  width:34px;
-  height:34px;
-  border-radius:11px;
-  background:var(--accent);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
+.logo-icon{
+  width:36px;
+  height:36px;
+  border-radius:11px;
+  background:var(--primary);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+}
+
+.logo span{
+  color:var(--primary);
+}
+
+.nav-title{
+  color:#aaaeba;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  padding:0 12px 10px;
 }
 
 .nav{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
 }
 
 .nav button{
-  border:0;
-  background:transparent;
-  color:#666861;
-  text-align:left;
-  padding:12px 14px;
-  border-radius:12px;
-  font-size:14px;
+  width:100%;
+  text-align:left;
+  padding:12px;
+  border-radius:11px;
+  background:transparent;
+  color:#696d78;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:11px;
 }
 
 .nav button:hover,
 .nav button.active{
-  background:var(--accent-soft);
-  color:var(--accent);
+  background:var(--primary-light);
+  color:var(--primary);
+  font-weight:600;
 }
 
-.profile{
-  margin-top:auto;
-  border-top:1px solid var(--line);
-  padding-top:18px;
+.nav-icon{
+  width:21px;
+  text-align:center;
+}
+
+profile{
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:20px;
+  border-top:1px solid var(--border);
+  padding:16px 8px 0;
   display:flex;
   align-items:center;
   gap:10px;
 }
 
 .avatar{
-  width:38px;
-  height:38px;
+  width:36px;
+  height:36px;
+  background:#eceaff;
+  color:var(--primary);
   border-radius:50%;
-  background:#e9e8ff;
   display:flex;
-  align-items:center;
   justify-content:center;
-  color:var(--accent);
+  align-items:center;
   font-weight:700;
 }
 
-.profile-text{
+.profile-name{
   font-size:13px;
+  font-weight:700;
 }
 
-.profile-text strong{
-  display:block;
-}
-
-.profile-text span{
+.profile-small{
   color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
 }
 
 /* MAIN */
-
 .main{
   margin-left:245px;
-  padding:28px 35px 50px;
-  max-width:1500px;
+  width:calc(100% - 245px);
+  min-height:100vh;
 }
 
 .topbar{
+  height:74px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin-bottom:28px;
+  justify-content:space-between;
+  padding:0 35px;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .search{
-  width:min(440px,100%);
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:13px;
-  padding:12px 15px;
-  outline:none;
-}
-
-.search:focus{
-  border-color:var(--accent);
-}
-
-.hero{
-  display:grid;
-  grid-template-columns:1fr 280px;
-  gap:20px;
-  margin-bottom:30px;
-}
-
-.hero-main{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:30px;
-  box-shadow:var(--shadow);
-}
-
-.hero-main h1{
-  margin:0 0 10px;
-  font-size:30px;
-}
-
-.hero-main p{
-  color:var(--muted);
-  line-height:1.6;
-  max-width:650px;
-}
-
-.hero-buttons{
+  width:350px;
+  background:#f7f7fa;
+  border:1px solid var(--border);
+  border-radius:11px;
   display:flex;
+  align-items:center;
+  padding:9px 13px;
+  gap:8px;
+}
+
+.search input{
+  width:100%;
+  border:none;
+  outline:none;
+  background:transparent;
+  font-size:13px;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
   gap:10px;
-  margin-top:22px;
-  flex-wrap:wrap;
 }
 
-.primary{
-  border:0;
-  background:var(--accent);
-  color:#fff;
-  padding:12px 17px;
-  border-radius:12px;
+.icon-btn{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:#f7f7fa;
+  color:#626572;
+}
+
+.content{
+  padding:30px 35px 100px;
+  max-width:1450px;
+  margin:auto;
+}
+
+/* BUTTONS */
+.primary-btn{
+  background:var(--primary);
+  color:white;
+  padding:11px 17px;
+  border-radius:10px;
   font-weight:650;
+  font-size:13px;
+  box-shadow:0 5px 14px rgba(98,87,232,.18);
 }
 
-.secondary{
-  border:1px solid var(--line);
+.primary-btn:hover{
+  opacity:.92;
+}
+
+.secondary-btn{
   background:#fff;
-  padding:12px 17px;
-  border-radius:12px;
+  color:#525560;
+  border:1px solid var(--border);
+  padding:10px 15px;
+  border-radius:10px;
+  font-weight:600;
+  font-size:13px;
+}
+
+.danger-btn{
+  background:#fff0f1;
+  color:#d94e59;
+  padding:9px 12px;
+  border-radius:9px;
+  font-size:12px;
   font-weight:600;
 }
 
-.progress-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:25px;
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#6257e8,#756cf0);
+  border-radius:20px;
+  padding:30px;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:25px;
   box-shadow:var(--shadow);
 }
 
-.progress-card h3{
-  margin-top:0;
+.hero h1{
+  font-size:28px;
+  margin-bottom:9px;
 }
 
-.progress-number{
-  font-size:40px;
-  font-weight:800;
-  margin:18px 0 10px;
+.hero p{
+  max-width:650px;
+  color:#e9e7ff;
+  line-height:1.55;
+  font-size:14px;
 }
 
-.progress-bar{
-  height:9px;
-  border-radius:20px;
-  background:#ededeb;
-  overflow:hidden;
+.hero-buttons{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-.progress-fill{
-  height:100%;
-  width:68%;
-  background:var(--accent);
+.hero .primary-btn{
+  background:white;
+  color:var(--primary);
+}
+
+.hero .secondary-btn{
+  background:rgba(255,255,255,.12);
+  color:white;
+  border-color:rgba(255,255,255,.25);
+}
+
+.progress-circle{
+  min-width:115px;
+  height:115px;
+  border-radius:50%;
+  background:rgba(255,255,255,.13);
+  border:8px solid rgba(255,255,255,.25);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.progress-circle strong{
+  font-size:27px;
+}
+
+.progress-circle span{
+  font-size:11px;
+  color:#eeeaff;
 }
 
 /* SECTIONS */
-
 .section{
   margin-top:30px;
 }
 
-.section-header{
+.section-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:15px;
 }
 
-.section-header h2{
-  margin:0;
-  font-size:20px;
+.section-head h2{
+  font-size:18px;
 }
 
-.section-header button{
-  border:0;
-  background:transparent;
-  color:var(--accent);
-  font-weight:600;
+.section-head p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
 }
 
-.notes-grid{
+/* GRID */
+.grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:16px;
+  gap:15px;
 }
 
-.note-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:20px;
-  transition:.2s;
-}
-
-.note-card:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow);
-}
-
-.note-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:var(--accent-soft);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:16px;
-}
-
-.note-card h3{
-  margin:0 0 7px;
-}
-
-.note-card p{
-  color:var(--muted);
-  margin:0 0 15px;
-  font-size:13px;
-}
-
-.note-progress{
-  height:7px;
-  background:#ededeb;
-  border-radius:10px;
-  overflow:hidden;
-}
-
-.note-progress div{
-  height:100%;
-  background:var(--accent);
-}
-
-.tools{
+.grid-4{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:15px;
 }
 
-.tool{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:17px;
-  padding:20px;
-  text-align:left;
-  transition:.2s;
-}
-
-.tool:hover{
-  transform:translateY(-2px);
+/* CARDS */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:18px;
   box-shadow:var(--shadow);
 }
 
-.tool-icon{
-  font-size:24px;
-  margin-bottom:14px;
+.note-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
 }
 
-.tool strong{
-  display:block;
-  margin-bottom:6px;
+.subject-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:#eeecff;
+  color:var(--primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
 }
 
-.tool span{
+.note-card h3{
+  margin-top:14px;
+  font-size:15px;
+}
+
+.note-card p{
   color:var(--muted);
-  font-size:13px;
+  font-size:12px;
+  margin-top:5px;
 }
 
-/* UPLOAD */
+.progress-bar{
+  height:7px;
+  background:#eeeef3;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:15px;
+}
 
-.upload-section{
+.progress-fill{
+  height:100%;
+  background:var(--primary);
+  border-radius:20px;
+}
+
+.note-footer{
+  display:flex;
+  justify-content:space-between;
+  margin-top:9px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* TOOLS */
+.tool-card{
+  text-align:left;
+  transition:.15s;
+}
+
+.tool-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(30,30,60,.09);
+}
+
+.tool-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:#f0efff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.tool-card h3{
+  font-size:14px;
+}
+
+.tool-card p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.4;
+  margin-top:5px;
+}
+
+/* DASHBOARD LOWER */
+.lower-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1.4fr .8fr;
   gap:18px;
 }
 
+.activity{
+  display:flex;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.activity:last-child{
+  border-bottom:none;
+}
+
+.activity-icon{
+  width:35px;
+  height:35px;
+  border-radius:10px;
+  background:#f0efff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.activity strong{
+  font-size:13px;
+}
+
+.activity small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+/* STATS */
+.stat-card{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.stat-icon{
+  width:45px;
+  height:45px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f0efff;
+  font-size:20px;
+}
+
+.stat-value{
+  font-size:22px;
+  font-weight:800;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
+}
+
+/* PAGES */
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.page-title{
+  margin-bottom:25px;
+}
+
+.page-title h1{
+  font-size:25px;
+}
+
+.page-title p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
+}
+
+/* UPLOAD */
 .upload-box{
+  border:2px dashed #dcdbe8;
   background:#fff;
-  border:1px dashed #cfcfc9;
-  border-radius:20px;
-  padding:30px;
+  border-radius:17px;
+  padding:35px 20px;
   text-align:center;
 }
 
-.upload-box h3{
-  margin-top:0;
+.upload-icon{
+  width:55px;
+  height:55px;
+  margin:auto;
+  background:var(--primary-light);
+  color:var(--primary);
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.upload-box h2{
+  font-size:18px;
+  margin-top:13px;
 }
 
 .upload-box p{
   color:var(--muted);
-  font-size:14px;
+  font-size:12px;
+  margin:7px 0 17px;
 }
 
-.upload-buttons{
-  display:flex;
-  justify-content:center;
+.preview-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
   gap:10px;
-  flex-wrap:wrap;
   margin-top:20px;
 }
 
-input[type="file"]{
-  display:none;
+.preview{
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  height:120px;
 }
 
-.activity{
+.preview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.preview button{
+  position:absolute;
+  right:6px;
+  top:6px;
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:rgba(0,0,0,.65);
+  color:#fff;
+}
+
+/* FORMS */
+.form-card{
+  max-width:750px;
+}
+
+.form-group{
+  margin-bottom:16px;
+}
+
+.form-group label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:11px 12px;
+  outline:none;
   background:#fff;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:25px;
-}
-
-.activity-item{
-  padding:13px 0;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.activity-item:last-child{
-  border-bottom:0;
-}
-
-.activity-item span{
-  color:var(--muted);
   font-size:13px;
 }
 
-/* MOBILE */
+.form-group textarea{
+  min-height:110px;
+  resize:vertical;
+}
 
-.mobile-nav{
-  display:none;
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+/* EXAMS */
+.exam-card{
+  position:relative;
+}
+
+.exam-date{
+  color:var(--primary);
+  font-size:12px;
+  font-weight:700;
+}
+
+.exam-card h3{
+  font-size:16px;
+  margin:7px 0;
+}
+
+.exam-topic{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.countdown{
+  margin:17px 0;
+  padding:13px;
+  border-radius:11px;
+  background:#f5f3ff;
+  color:var(--primary);
+  font-weight:750;
+  font-size:14px;
+}
+
+.exam-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* VOCAB */
+.vocab-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.vocab-row{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:13px;
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  align-items:center;
+}
+
+.vocab-word{
+  font-weight:700;
+}
+
+.vocab-translation{
+  color:var(--muted);
+}
+
+/* FLASHCARD */
+.flashcard-wrap{
+  max-width:600px;
+  margin:auto;
+}
+
+.flashcard{
+  height:300px;
+  perspective:1000px;
+  cursor:pointer;
+}
+
+.flash-inner{
+  width:100%;
+  height:100%;
+  transition:transform .5s;
+  transform-style:preserve-3d;
+  position:relative;
+}
+
+.flashcard.flipped .flash-inner{
+  transform:rotateY(180deg);
+}
+
+.flash-face{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:20px;
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  padding:25px;
+  text-align:center;
+}
+
+.flash-back{
+  transform:rotateY(180deg);
+  background:#f6f4ff;
+}
+
+.flash-face small{
+  color:var(--muted);
+  margin-bottom:15px;
+}
+
+.flash-face strong{
+  font-size:30px;
+}
+
+.flash-buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+/* TODO */
+.todo-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.todo-row:last-child{
+  border-bottom:none;
+}
+
+.todo-row input{
+  width:18px;
+  height:18px;
+}
+
+.todo-row.done span{
+  text-decoration:line-through;
+  color:#aaa;
+}
+
+.todo-delete{
+  margin-left:auto;
+  color:#aaa;
+  background:none;
+}
+
+/* TIMER */
+.timer-card{
+  max-width:550px;
+  margin:auto;
+  text-align:center;
+}
+
+.timer-display{
+  font-size:65px;
+  font-weight:800;
+  letter-spacing:2px;
+  margin:25px 0;
+}
+
+.timer-presets{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.timer-presets button{
+  background:#f1f0f7;
+  padding:8px 12px;
+  border-radius:9px;
+  font-size:12px;
+}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:45px 20px;
+  color:var(--muted);
+}
+
+.empty-icon{
+  font-size:38px;
+  margin-bottom:10px;
 }
 
 /* MODAL */
-
-.modal-overlay{
+.modal{
   position:fixed;
   inset:0;
-  background:rgba(20,20,20,.45);
+  background:rgba(20,20,30,.45);
   display:none;
   align-items:center;
   justify-content:center;
-  padding:20px;
   z-index:100;
+  padding:20px;
 }
 
-.modal-overlay.show{
+.modal.show{
   display:flex;
 }
 
-.modal{
-  width:min(620px,100%);
+.modal-box{
+  background:#fff;
+  width:100%;
+  max-width:600px;
   max-height:90vh;
   overflow:auto;
-  background:#fff;
-  border-radius:24px;
-  padding:25px;
-  box-shadow:0 20px 70px rgba(0,0,0,.2);
+  border-radius:18px;
+  padding:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
 }
 
-.modal-header{
+.modal-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:20px;
 }
 
-.modal-header h2{
-  margin:0;
-}
-
 .close{
-  border:0;
-  background:#f1f1ee;
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  font-size:20px;
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  background:#f3f3f6;
 }
 
-.field{
-  margin-bottom:16px;
-}
-
-.field label{
-  display:block;
-  font-size:13px;
-  font-weight:650;
-  margin-bottom:7px;
-}
-
-.field input,
-.field textarea{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
-  outline:none;
-}
-
-.field textarea{
-  min-height:110px;
-  resize:vertical;
-}
-
-.camera-area{
-  border:1px dashed #cfcfc9;
-  background:#fafaf8;
-  border-radius:16px;
-  padding:20px;
-  text-align:center;
-  margin-bottom:18px;
-}
-
-.camera-buttons{
-  display:flex;
-  gap:9px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.preview-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin-top:15px;
-}
-
-.preview-item{
-  position:relative;
-  border-radius:14px;
-  overflow:hidden;
-  background:#eee;
-  border:1px solid var(--line);
-}
-
-.preview-item img{
-  width:100%;
-  height:190px;
-  object-fit:contain;
-  display:block;
-  background:#f5f5f3;
-}
-
-.remove-photo{
-  position:absolute;
-  right:8px;
-  top:8px;
-  border:0;
-  background:rgba(0,0,0,.65);
-  color:white;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-}
-
-.modal-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:20px;
-}
-
+/* TOAST */
 .toast{
   position:fixed;
   bottom:25px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:#20211f;
-  color:white;
+  right:25px;
+  background:#20212a;
+  color:#fff;
   padding:12px 17px;
-  border-radius:12px;
+  border-radius:10px;
+  font-size:13px;
+  transform:translateY(100px);
   opacity:0;
-  pointer-events:none;
   transition:.25s;
   z-index:200;
 }
 
 .toast.show{
+  transform:translateY(0);
   opacity:1;
-  transform:translateX(-50%) translateY(0);
 }
 
-/* RESPONSIVE */
+/* MOBILE */
+.mobile-nav{
+  display:none;
+}
 
-@media(max-width:900px){
+@media(max-width:1050px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid-4{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .lower-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:800px){
   .sidebar{
     display:none;
   }
 
   .main{
     margin-left:0;
-    padding:20px 16px 90px;
+    width:100%;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .search{
+    width:220px;
+  }
+
+  .content{
+    padding:20px 15px 90px;
   }
 
   .hero{
-    grid-template-columns:1fr;
+    padding:22px;
   }
 
-  .notes-grid{
-    grid-template-columns:1fr;
+  .hero h1{
+    font-size:23px;
   }
 
-  .tools{
-    grid-template-columns:repeat(2,1fr);
+  .progress-circle{
+    display:none;
   }
 
-  .upload-section{
+  .grid,
+  .grid-4{
     grid-template-columns:1fr;
   }
 
   .mobile-nav{
-    position:fixed;
     display:flex;
+    position:fixed;
     bottom:0;
     left:0;
     right:0;
-    height:68px;
+    height:65px;
     background:#fff;
-    border-top:1px solid var(--line);
+    border-top:1px solid var(--border);
     z-index:50;
     justify-content:space-around;
-    align-items:center;
   }
 
   .mobile-nav button{
-    border:0;
-    background:transparent;
-    color:var(--muted);
-    font-size:11px;
+    background:none;
+    color:#858894;
+    font-size:10px;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    align-items:center;
+    justify-content:center;
   }
 
   .mobile-nav button.active{
-    color:var(--accent);
+    color:var(--primary);
+  }
+
+  .form-row{
+    grid-template-columns:1fr;
+  }
+
+  .vocab-row{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .vocab-row button{
+    grid-column:span 2;
   }
 }
 
-@media(max-width:520px){
-  .hero-main{
-    padding:22px;
-  }
-
-  .hero-main h1{
-    font-size:25px;
-  }
-
-  .tools{
-    grid-template-columns:1fr;
-  }
-
-  .preview-grid{
-    grid-template-columns:1fr;
-  }
-
-  .topbar{
-    display:block;
-  }
-
+@media(max-width:500px){
   .search{
-    width:100%;
+    width:170px;
+  }
+
+  .top-actions .icon-btn{
+    display:none;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .timer-display{
+    font-size:48px;
   }
 }
 </style>
@@ -661,372 +1020,944 @@ input[type="file"]{
 
 <div class="app">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+<!-- SIDEBAR -->
+<aside class="sidebar">
 
-    <div class="logo">
-      <div class="logo-mark">S</div>
-      StudySnap AI
-    </div>
+  <div class="logo">
+    <div class="logo-icon">S</div>
+    Study<span>Snap</span>
+  </div>
 
-    <nav class="nav">
-      <button class="active" onclick="selectNav(this)">⌂ Übersicht</button>
-      <button onclick="selectNav(this)">▣ Meine Lernzettel</button>
-      <button onclick="selectNav(this)">✓ Quiz</button>
-      <button onclick="selectNav(this)">▤ Karteikarten</button>
-      <button onclick="selectNav(this)">💬 StudySnap fragen</button>
-      <button onclick="selectNav(this)">⚙ Einstellungen</button>
-    </nav>
+  <div class="nav-title">Lernen</div>
 
-    <div class="profile">
-      <div class="avatar">C</div>
-      <div class="profile-text">
-        <strong>Celine</strong>
-        <span>Schülerkonto</span>
-      </div>
-    </div>
+  <nav class="nav">
 
-  </aside>
+    <button class="active" onclick="showPage('dashboard',this)">
+      <span class="nav-icon">⌂</span>
+      Übersicht
+    </button>
 
-  <!-- MAIN -->
-  <main class="main">
+    <button onclick="showPage('notes',this)">
+      <span class="nav-icon">📚</span>
+      Meine Lernzettel
+    </button>
 
-    <div class="topbar">
-      <input
-        class="search"
-        id="searchInput"
-        type="search"
-        placeholder="🔎 Lernzettel suchen..."
-        oninput="searchNotes()"
-      >
-    </div>
+    <button onclick="showPage('quiz',this)">
+      <span class="nav-icon">🧠</span>
+      Quiz
+    </button>
 
-    <!-- HERO -->
-    <section class="hero">
+    <button onclick="showPage('flashcards',this)">
+      <span class="nav-icon">🃏</span>
+      Karteikarten
+    </button>
 
-      <div class="hero-main">
-        <h1>Schön, dass du da bist. 👋</h1>
+    <button onclick="showPage('vocabulary',this)">
+      <span class="nav-icon">🇬🇧</span>
+      Vokabeln
+    </button>
 
-        <p>
-          Verwandle deine Lernzettel in Quizfragen, Karteikarten
-          und verständliche Zusammenfassungen – alles an einem Ort.
-        </p>
+    <button onclick="showPage('questions',this)">
+      <span class="nav-icon">💬</span>
+      StudySnap fragen
+    </button>
 
-        <div class="hero-buttons">
-          <button class="primary" onclick="openNoteModal()">
-            ＋ Lernzettel hinzufügen
-          </button>
+    <div class="nav-title" style="margin-top:22px">Planung</div>
 
-          <button class="secondary" onclick="scrollToNotes()">
-            Meine Lernzettel
-          </button>
-        </div>
-      </div>
+    <button onclick="showPage('exams',this)">
+      <span class="nav-icon">📅</span>
+      Klassenarbeiten
+    </button>
 
-      <div class="progress-card">
-        <h3>Dein Lernfortschritt</h3>
+    <button onclick="showPage('tasks',this)">
+      <span class="nav-icon">✓</span>
+      Aufgaben
+    </button>
 
-        <div class="progress-number">68%</div>
+    <button onclick="showPage('timer',this)">
+      <span class="nav-icon">⏱</span>
+      Lern-Timer
+    </button>
 
-        <div class="progress-bar">
-          <div class="progress-fill"></div>
-        </div>
-
-        <p style="color:var(--muted);font-size:13px;">
-          Du bist gut unterwegs!
-        </p>
-      </div>
-
-    </section>
-
-    <!-- NOTES -->
-    <section class="section" id="notesSection">
-
-      <div class="section-header">
-        <h2>Meine Lernzettel</h2>
-        <button onclick="openNoteModal()">Alle anzeigen</button>
-      </div>
-
-      <div class="notes-grid" id="notesGrid">
-
-        <div class="note-card searchable-note">
-          <div class="note-icon">👁️</div>
-          <h3>Biologie – Das Auge</h3>
-          <p>12 Seiten · 82% gelernt</p>
-
-          <div class="note-progress">
-            <div style="width:82%;"></div>
-          </div>
-        </div>
-
-        <div class="note-card searchable-note">
-          <div class="note-icon">∑</div>
-          <h3>Mathe – Terme</h3>
-          <p>8 Seiten · 54% gelernt</p>
-
-          <div class="note-progress">
-            <div style="width:54%;"></div>
-          </div>
-        </div>
-
-        <div class="note-card searchable-note">
-          <div class="note-icon">A</div>
-          <h3>Englisch – Grammar</h3>
-          <p>6 Seiten · 31% gelernt</p>
-
-          <div class="note-progress">
-            <div style="width:31%;"></div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- TOOLS -->
-    <section class="section">
-
-      <div class="section-header">
-        <h2>Schnell lernen</h2>
-      </div>
-
-      <div class="tools">
-
-        <button class="tool" onclick="openTool('Quiz')">
-          <div class="tool-icon">🧠</div>
-          <strong>Quiz erstellen</strong>
-          <span>Teste dein Wissen.</span>
-        </button>
-
-        <button class="tool" onclick="openTool('Karteikarten')">
-          <div class="tool-icon">🗂️</div>
-          <strong>Karteikarten</strong>
-          <span>Lerne wichtige Begriffe.</span>
-        </button>
-
-        <button class="tool" onclick="openTool('Zusammenfassung')">
-          <div class="tool-icon">✨</div>
-          <strong>Zusammenfassen</strong>
-          <span>Das Wichtigste auf einen Blick.</span>
-        </button>
-
-        <button class="tool" onclick="openTool('StudySnap fragen')">
-          <div class="tool-icon">💬</div>
-          <strong>StudySnap fragen</strong>
-          <span>Stelle Fragen zu deinem Stoff.</span>
-        </button>
-
-      </div>
-    </section>
-
-    <!-- UPLOAD -->
-    <section class="section upload-section">
-
-      <div class="upload-box">
-
-        <h3>📚 Lernzettel hinzufügen</h3>
-
-        <p>
-          Ziehe deine Datei hierher oder wähle ein Foto bzw. eine Datei aus.
-        </p>
-
-        <div class="upload-buttons">
-
-          <button class="primary" onclick="openNoteModal()">
-            ＋ Hinzufügen
-          </button>
-
-          <button class="secondary" onclick="document.getElementById('mainFileInput').click()">
-            Datei auswählen
-          </button>
-
-        </div>
-
-        <input
-          id="mainFileInput"
-          type="file"
-          accept="image/*,.pdf"
-          multiple
-          onchange="handleFile(event)"
-        >
-
-      </div>
-
-      <div class="activity">
-
-        <h3 style="margin-top:0;">Letzte Aktivitäten</h3>
-
-        <div class="activity-item">
-          <strong>Biologie gelernt</strong>
-          <span>Heute</span>
-        </div>
-
-        <div class="activity-item">
-          <strong>Quiz abgeschlossen</strong>
-          <span>Gestern</span>
-        </div>
-
-        <div class="activity-item">
-          <strong>Karteikarten wiederholt</strong>
-          <span>Vor 2 Tagen</span>
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- MOBILE NAV -->
-  <nav class="mobile-nav">
-    <button class="active" onclick="mobileNav(this)">⌂<br>Home</button>
-    <button onclick="mobileNav(this)">▣<br>Lernzettel</button>
-    <button onclick="mobileNav(this)">✓<br>Quiz</button>
-    <button onclick="openNoteModal()">＋<br>Hinzufügen</button>
   </nav>
 
-</div>
-
-
-<!-- MODAL -->
-<div class="modal-overlay" id="noteModal">
-
-  <div class="modal">
-
-    <div class="modal-header">
-      <h2>Neuen Lernzettel erstellen</h2>
-
-      <button class="close" onclick="closeNoteModal()">×</button>
+  <div class="profile">
+    <div class="avatar">C</div>
+    <div>
+      <div class="profile-name">Mein StudySnap</div>
+      <div class="profile-small">Lernprofil</div>
     </div>
+  </div>
 
-    <div class="field">
-      <label>Titel</label>
+</aside>
 
-      <input
-        id="noteTitle"
-        type="text"
-        placeholder="z. B. Biologie – Das Auge"
-      >
-    </div>
+<main class="main">
 
-    <div class="camera-area">
+<!-- TOPBAR -->
+<header class="topbar">
 
-      <strong>📸 Lernzettel fotografieren</strong>
+  <div class="search">
+    🔎
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Lernzettel suchen..."
+      oninput="searchNotes()"
+    >
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" onclick="showToast('Benachrichtigungen kommen bald 🔔')">🔔</button>
+    <button class="icon-btn" onclick="showPage('settings')">⚙️</button>
+  </div>
+
+</header>
+
+<div class="content">
+
+<!-- ================= DASHBOARD ================= -->
+<section id="dashboard" class="page active">
+
+  <div class="hero">
+
+    <div>
+      <h1>Schön, dass du da bist. 👋</h1>
 
       <p>
-        Du kannst eine oder mehrere Seiten fotografieren.
-        Die Fotos werden anschließend hier angezeigt.
+        Verwandle deine Lernzettel in Quizfragen, Karteikarten
+        und verständliche Zusammenfassungen – alles an einem Ort.
       </p>
 
-      <div class="camera-buttons">
-
-        <!-- KAMERA -->
-        <button
-          class="primary"
-          onclick="openCamera()"
-        >
-          📷 Foto aufnehmen
+      <div class="hero-buttons">
+        <button class="primary-btn" onclick="openUpload()">
+          ＋ Lernzettel hinzufügen
         </button>
 
-        <!-- GALERIE -->
-        <button
-          class="secondary"
-          onclick="openGallery()"
-        >
-          🖼️ Fotogalerie
+        <button class="secondary-btn" onclick="showPage('notes')">
+          Meine Lernzettel
         </button>
+      </div>
+    </div>
 
-        <!-- DATEI -->
-        <button
-          class="secondary"
-          onclick="openFilePicker()"
-        >
-          📁 Datei auswählen
-        </button>
+    <div class="progress-circle">
+      <strong id="overallProgress">68%</strong>
+      <span>Fortschritt</span>
+    </div>
 
+  </div>
+
+  <!-- STATS -->
+  <div class="section">
+
+    <div class="grid-4">
+
+      <div class="card stat-card">
+        <div class="stat-icon">📚</div>
+        <div>
+          <div class="stat-value" id="statNotes">0</div>
+          <div class="stat-label">Lernzettel</div>
+        </div>
       </div>
 
-      <!-- VERSTECKTE DATEI-EINGABEN -->
+      <div class="card stat-card">
+        <div class="stat-icon">🧠</div>
+        <div>
+          <div class="stat-value" id="statQuiz">0</div>
+          <div class="stat-label">Quizze gemacht</div>
+        </div>
+      </div>
 
-      <input
-        id="cameraInput"
-        type="file"
-        accept="image/*"
-        capture="environment"
-        multiple
-        onchange="handleNoteImages(event)"
-      >
+      <div class="card stat-card">
+        <div class="stat-icon">🔥</div>
+        <div>
+          <div class="stat-value" id="statStreak">1</div>
+          <div class="stat-label">Tage Lernserie</div>
+        </div>
+      </div>
 
-      <input
-        id="galleryInput"
-        type="file"
-        accept="image/*"
-        multiple
-        onchange="handleNoteImages(event)"
-      >
-
-      <input
-        id="fileInput"
-        type="file"
-        accept="image/*,.pdf"
-        multiple
-        onchange="handleNoteImages(event)"
-      >
-
-      <!-- FOTO-VORSCHAU -->
-
-      <div id="filePreview" class="preview-grid"></div>
-
-    </div>
-
-    <div class="field">
-
-      <label>Notizen / Inhalt</label>
-
-      <textarea
-        id="noteContent"
-        placeholder="Hier kannst du zusätzliche Informationen eingeben..."
-      ></textarea>
-
-    </div>
-
-    <div class="modal-actions">
-
-      <button
-        class="secondary"
-        onclick="closeNoteModal()"
-      >
-        Abbrechen
-      </button>
-
-      <button
-        class="primary"
-        onclick="saveNote()"
-      >
-        Lernzettel speichern
-      </button>
+      <div class="card stat-card">
+        <div class="stat-icon">🏆</div>
+        <div>
+          <div class="stat-value" id="statXP">0</div>
+          <div class="stat-label">XP gesammelt</div>
+        </div>
+      </div>
 
     </div>
 
   </div>
 
+  <!-- NOTES -->
+  <div class="section">
+
+    <div class="section-head">
+      <div>
+        <h2>Meine Lernzettel</h2>
+        <p>Deine zuletzt gespeicherten Lernunterlagen</p>
+      </div>
+
+      <button class="secondary-btn" onclick="showPage('notes')">
+        Alle anzeigen
+      </button>
+    </div>
+
+    <div id="dashboardNotes" class="grid"></div>
+
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section">
+
+    <div class="section-head">
+      <div>
+        <h2>Schnell lernen</h2>
+        <p>Starte direkt mit einer Lernmethode</p>
+      </div>
+    </div>
+
+    <div class="grid-4">
+
+      <button class="card tool-card" onclick="showPage('quiz')">
+        <div class="tool-icon">🧠</div>
+        <h3>Quiz starten</h3>
+        <p>Teste dein Wissen mit Fragen.</p>
+      </button>
+
+      <button class="card tool-card" onclick="showPage('flashcards')">
+        <div class="tool-icon">🃏</div>
+        <h3>Karteikarten</h3>
+        <p>Wiederhole wichtige Inhalte.</p>
+      </button>
+
+      <button class="card tool-card" onclick="showPage('vocabulary')">
+        <div class="tool-icon">🇬🇧</div>
+        <h3>Vokabeln</h3>
+        <p>Lerne Wörter mit Karteikarten.</p>
+      </button>
+
+      <button class="card tool-card" onclick="showPage('timer')">
+        <div class="tool-icon">⏱</div>
+        <h3>Lern-Timer</h3>
+        <p>Konzentriert lernen ohne Ablenkung.</p>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- LOWER -->
+  <div class="section lower-grid">
+
+    <div class="card">
+
+      <div class="section-head">
+        <div>
+          <h2>Letzte Aktivitäten</h2>
+        </div>
+      </div>
+
+      <div id="activityList">
+
+        <div class="activity">
+          <div class="activity-icon">✨</div>
+          <div>
+            <strong>Willkommen bei StudySnap</strong>
+            <small>Deine Lernreise beginnt hier.</small>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="section-head">
+        <div>
+          <h2>Dein Tagesziel</h2>
+          <p>Wie viel möchtest du heute lernen?</p>
+        </div>
+      </div>
+
+      <div style="font-size:30px;font-weight:800" id="dailyMinutes">
+        0 / 45 Min.
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="dailyProgress" style="width:0%"></div>
+      </div>
+
+      <button
+        class="primary-btn"
+        style="margin-top:15px"
+        onclick="showPage('timer')"
+      >
+        Jetzt lernen
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= NOTES ================= -->
+<section id="notes" class="page">
+
+  <div class="page-title">
+    <h1>Meine Lernzettel</h1>
+    <p>Speichere und verwalte deine Lernunterlagen.</p>
+  </div>
+
+  <div class="card upload-box">
+
+    <div class="upload-icon">📸</div>
+
+    <h2>Lernzettel hinzufügen</h2>
+
+    <p>
+      Lade Fotos oder PDF-Dateien deiner Lernzettel hoch.
+    </p>
+
+    <button class="primary-btn" onclick="openUpload()">
+      ＋ Dateien auswählen
+    </button>
+
+  </div>
+
+  <div class="section">
+    <div id="notesList" class="grid"></div>
+  </div>
+
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="quiz" class="page">
+
+  <div class="page-title">
+    <h1>🧠 Quiz</h1>
+    <p>Teste dein Wissen.</p>
+  </div>
+
+  <div class="card form-card">
+
+    <div class="form-group">
+      <label>Fach</label>
+      <select id="quizSubject">
+        <option>Biologie</option>
+        <option>Mathe</option>
+        <option>Englisch</option>
+        <option>Deutsch</option>
+        <option>Geschichte</option>
+        <option>Physik</option>
+        <option>Sonstiges</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Thema</label>
+      <input id="quizTopic" placeholder="z. B. Das Auge">
+    </div>
+
+    <div class="form-group">
+      <label>Schwierigkeit</label>
+      <select id="quizDifficulty">
+        <option>Leicht</option>
+        <option>Mittel</option>
+        <option>Schwer</option>
+      </select>
+    </div>
+
+    <button class="primary-btn" onclick="startQuiz()">
+      Quiz starten 🚀
+    </button>
+
+  </div>
+
+  <div id="quizArea" class="section"></div>
+
+</section>
+
+<!-- ================= FLASHCARDS ================= -->
+<section id="flashcards" class="page">
+
+  <div class="page-title">
+    <h1>🃏 Karteikarten</h1>
+    <p>Wiederhole deine Lerninhalte.</p>
+  </div>
+
+  <div class="flashcard-wrap">
+
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+
+      <div class="flash-inner">
+
+        <div class="flash-face">
+          <small>Frage</small>
+          <strong id="flashQuestion">
+            Was möchtest du heute lernen?
+          </strong>
+        </div>
+
+        <div class="flash-face flash-back">
+          <small>Antwort</small>
+          <strong id="flashAnswer">
+            Erstelle zuerst Karteikarten.
+          </strong>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="flash-buttons">
+
+      <button class="danger-btn" onclick="answerCard(false)">
+        ↻ Nochmal
+      </button>
+
+      <button class="primary-btn" onclick="answerCard(true)">
+        ✓ Gewusst
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= VOCABULARY ================= -->
+<section id="vocabulary" class="page">
+
+  <div class="page-title">
+    <h1>🇬🇧 Vokabeltrainer</h1>
+    <p>Erstelle deine eigenen Vokabelkarten.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label>Englisches Wort</label>
+        <input id="vocabWord" placeholder="beautiful">
+      </div>
+
+      <div class="form-group">
+        <label>Deutsche Übersetzung</label>
+        <input id="vocabTranslation" placeholder="schön">
+      </div>
+
+    </div>
+
+    <button class="primary-btn" onclick="addVocabulary()">
+      ＋ Vokabel hinzufügen
+    </button>
+
+  </div>
+
+  <div class="section">
+
+    <div class="section-head">
+      <div>
+        <h2>Meine Vokabeln</h2>
+      </div>
+
+      <button class="secondary-btn" onclick="startVocabularyCards()">
+        Karteikarten starten
+      </button>
+    </div>
+
+    <div id="vocabList" class="vocab-list"></div>
+
+  </div>
+
+  <div id="vocabFlashArea" class="section"></div>
+
+</section>
+
+<!-- ================= QUESTIONS ================= -->
+<section id="questions" class="page">
+
+  <div class="page-title">
+    <h1>💬 StudySnap fragen</h1>
+    <p>Stelle Fragen zu deinem Lernstoff.</p>
+  </div>
+
+  <div class="card form-card">
+
+    <div class="form-group">
+      <label>Deine Frage</label>
+
+      <textarea
+        id="questionInput"
+        placeholder="z. B. Was ist die Funktion der Netzhaut?"
+      ></textarea>
+
+    </div>
+
+    <button class="primary-btn" onclick="askStudySnap()">
+      Frage stellen
+    </button>
+
+    <div id="questionAnswer" style="margin-top:20px"></div>
+
+  </div>
+
+  <div class="card" style="margin-top:18px;max-width:750px">
+
+    <strong>🤖 StudySnap AI</strong>
+
+    <p style="color:var(--muted);font-size:12px;line-height:1.6;margin-top:8px">
+      Die echte KI wird später mit deinem Backend verbunden.
+      Dann kann StudySnap deine hochgeladenen Lernzettel analysieren
+      und Fragen genau anhand deines Lernstoffs beantworten.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- ================= EXAMS ================= -->
+<section id="exams" class="page">
+
+  <div class="page-title">
+    <h1>📅 Klassenarbeiten</h1>
+    <p>Behalte deine nächsten Tests im Blick.</p>
+  </div>
+
+  <div class="card form-card">
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label>Fach</label>
+        <input id="examSubject" placeholder="Mathe">
+      </div>
+
+      <div class="form-group">
+        <label>Thema</label>
+        <input id="examTopic" placeholder="Terme und Gleichungen">
+      </div>
+
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group">
+        <label>Datum</label>
+        <input id="examDate" type="date">
+      </div>
+
+      <div class="form-group">
+        <label>Uhrzeit</label>
+        <input id="examTime" type="time">
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Schwierigkeit</label>
+
+      <select id="examDifficulty">
+        <option>Normal</option>
+        <option>Wichtig</option>
+        <option>Sehr wichtig</option>
+      </select>
+
+    </div>
+
+    <button class="primary-btn" onclick="addExam()">
+      ＋ Klassenarbeit hinzufügen
+    </button>
+
+  </div>
+
+  <div class="section">
+
+    <div id="examList" class="grid"></div>
+
+  </div>
+
+</section>
+
+<!-- ================= TASKS ================= -->
+<section id="tasks" class="page">
+
+  <div class="page-title">
+    <h1>✓ Aufgaben</h1>
+    <p>Organisiere deine nächsten Lernaufgaben.</p>
+  </div>
+
+  <div class="card">
+
+    <div style="display:flex;gap:10px">
+
+      <input
+        id="taskInput"
+        style="flex:1;border:1px solid var(--border);border-radius:10px;padding:11px"
+        placeholder="z. B. Mathe Aufgaben 1–10"
+      >
+
+      <button class="primary-btn" onclick="addTask()">
+        Hinzufügen
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="card section">
+
+    <div id="taskList"></div>
+
+  </div>
+
+</section>
+
+<!-- ================= TIMER ================= -->
+<section id="timer" class="page">
+
+  <div class="page-title">
+    <h1>⏱ Lern-Timer</h1>
+    <p>Konzentriere dich auf deine Lernzeit.</p>
+  </div>
+
+  <div class="card timer-card">
+
+    <div style="color:var(--muted);font-size:13px">
+      Fokuszeit
+    </div>
+
+    <div class="timer-display" id="timerDisplay">
+      25:00
+    </div>
+
+    <div class="timer-presets">
+
+      <button onclick="setTimer(15)">15 Min.</button>
+      <button onclick="setTimer(25)">25 Min.</button>
+      <button onclick="setTimer(45)">45 Min.</button>
+      <button onclick="setTimer(60)">60 Min.</button>
+
+    </div>
+
+    <div style="margin-top:20px">
+
+      <button class="primary-btn" id="timerButton" onclick="toggleTimer()">
+        ▶ Start
+      </button>
+
+      <button
+        class="secondary-btn"
+        style="margin-left:6px"
+        onclick="resetTimer()"
+      >
+        Zurücksetzen
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= SETTINGS ================= -->
+<section id="settings" class="page">
+
+  <div class="page-title">
+    <h1>⚙️ Einstellungen</h1>
+    <p>Deine StudySnap-Einstellungen.</p>
+  </div>
+
+  <div class="card form-card">
+
+    <div class="form-group">
+
+      <label>Dein Name</label>
+
+      <input
+        id="profileNameInput"
+        placeholder="Mein StudySnap"
+      >
+
+    </div>
+
+    <button class="primary-btn" onclick="saveSettings()">
+      Einstellungen speichern
+    </button>
+
+    <hr style="border:0;border-top:1px solid var(--border);margin:25px 0">
+
+    <button class="danger-btn" onclick="clearAllData()">
+      Alle lokalen Daten löschen
+    </button>
+
+  </div>
+
+</section>
+
+</div>
+</main>
 </div>
 
+<!-- MOBILE NAV -->
+<nav class="mobile-nav">
 
-<div class="toast" id="toast"></div>
+  <button class="active" onclick="showPage('dashboard',this)">
+    <span>⌂</span>
+    Start
+  </button>
 
+  <button onclick="showPage('notes',this)">
+    <span>📚</span>
+    Lernzettel
+  </button>
+
+  <button onclick="showPage('quiz',this)">
+    <span>🧠</span>
+    Quiz
+  </button>
+
+  <button onclick="showPage('vocabulary',this)">
+    <span>🇬🇧</span>
+    Vokabeln
+  </button>
+
+  <button onclick="showPage('exams',this)">
+    <span>📅</span>
+    Tests
+  </button>
+
+</nav>
+
+<!-- UPLOAD MODAL -->
+<div class="modal" id="uploadModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div>
+        <h2>Lernzettel hinzufügen</h2>
+        <p style="font-size:12px;color:var(--muted);margin-top:4px">
+          Deine Dateien bleiben zunächst lokal auf diesem Gerät.
+        </p>
+      </div>
+
+      <button class="close" onclick="closeUpload()">✕</button>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Titel</label>
+
+      <input
+        id="noteTitle"
+        placeholder="z. B. Biologie – Das Auge"
+      >
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Fach</label>
+
+      <select id="noteSubject">
+        <option>Biologie</option>
+        <option>Mathe</option>
+        <option>Englisch</option>
+        <option>Deutsch</option>
+        <option>Geschichte</option>
+        <option>Physik</option>
+        <option>Chemie</option>
+        <option>Sonstiges</option>
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Kurze Beschreibung</label>
+
+      <textarea
+        id="noteContent"
+        placeholder="Worum geht es in diesem Lernzettel?"
+      ></textarea>
+
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+
+      <label class="primary-btn" style="display:inline-block">
+        📷 Kamera
+        <input
+          id="cameraInput"
+          type="file"
+          accept="image/*"
+          capture="environment"
+          hidden
+          onchange="handleFiles(this.files)"
+        >
+      </label>
+
+      <label class="secondary-btn" style="display:inline-block">
+        🖼 Fotos
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          hidden
+          onchange="handleFiles(this.files)"
+        >
+      </label>
+
+      <label class="secondary-btn" style="display:inline-block">
+        📄 Dateien
+        <input
+          type="file"
+          accept="image/*,.pdf"
+          multiple
+          hidden
+          onchange="handleFiles(this.files)"
+        >
+      </label>
+
+    </div>
+
+    <div id="previewGrid" class="preview-grid"></div>
+
+    <button
+      class="primary-btn"
+      style="margin-top:20px;width:100%"
+      onclick="saveNote()"
+    >
+      Lernzettel speichern
+    </button>
+
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
 
 <script>
 
-/* -------------------------
-   VARIABLES
-------------------------- */
+/* =========================================
+   DATA
+========================================= */
+
+let notes = JSON.parse(localStorage.getItem("studysnap_notes") || "[]");
+let exams = JSON.parse(localStorage.getItem("studysnap_exams") || "[]");
+let vocabulary = JSON.parse(localStorage.getItem("studysnap_vocab") || "[]");
+let tasks = JSON.parse(localStorage.getItem("studysnap_tasks") || "[]");
+
+let stats = JSON.parse(localStorage.getItem("studysnap_stats") || JSON.stringify({
+  quiz:0,
+  xp:0,
+  streak:1,
+  minutes:0
+}));
 
 let selectedImages = [];
 
+let flashIndex = 0;
 
-/* -------------------------
+let vocabFlashIndex = 0;
+
+/* =========================================
+   SAVE DATA
+========================================= */
+
+function saveData(){
+
+  localStorage.setItem(
+    "studysnap_notes",
+    JSON.stringify(notes)
+  );
+
+  localStorage.setItem(
+    "studysnap_exams",
+    JSON.stringify(exams)
+  );
+
+  localStorage.setItem(
+    "studysnap_vocab",
+    JSON.stringify(vocabulary)
+  );
+
+  localStorage.setItem(
+    "studysnap_tasks",
+    JSON.stringify(tasks)
+  );
+
+  localStorage.setItem(
+    "studysnap_stats",
+    JSON.stringify(stats)
+  );
+
+}
+
+/* =========================================
+   PAGE NAVIGATION
+========================================= */
+
+function showPage(pageId, clickedButton){
+
+  document.querySelectorAll(".page").forEach(page=>{
+    page.classList.remove("active");
+  });
+
+  const page = document.getElementById(pageId);
+
+  if(page){
+    page.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav button,.mobile-nav button")
+    .forEach(button=>{
+      button.classList.remove("active");
+    });
+
+  if(clickedButton){
+    clickedButton.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  if(pageId==="dashboard"){
+    renderDashboard();
+  }
+
+  if(pageId==="notes"){
+    renderNotes();
+  }
+
+  if(pageId==="vocabulary"){
+    renderVocabulary();
+  }
+
+  if(pageId==="exams"){
+    renderExams();
+  }
+
+  if(pageId==="tasks"){
+    renderTasks();
+  }
+
+}
+
+/* =========================================
    TOAST
-------------------------- */
+========================================= */
+
+let toastTimer;
 
 function showToast(message){
 
@@ -1036,116 +1967,43 @@ function showToast(message){
 
   toast.classList.add("show");
 
-  setTimeout(function(){
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(()=>{
     toast.classList.remove("show");
   },2500);
+
 }
 
+/* =========================================
+   UPLOAD
+========================================= */
 
-/* -------------------------
-   NAVIGATION
-------------------------- */
+function openUpload(){
 
-function selectNav(button){
-
-  document.querySelectorAll(".nav button")
-    .forEach(function(btn){
-      btn.classList.remove("active");
-    });
-
-  button.classList.add("active");
-
-  showToast(button.textContent.trim());
-}
-
-
-function mobileNav(button){
-
-  document.querySelectorAll(".mobile-nav button")
-    .forEach(function(btn){
-      btn.classList.remove("active");
-    });
-
-  button.classList.add("active");
-
-  showToast(button.textContent.replace(/\n/g," "));
-}
-
-
-/* -------------------------
-   MODAL
-------------------------- */
-
-function openNoteModal(){
-
-  document
-    .getElementById("noteModal")
+  document.getElementById("uploadModal")
     .classList.add("show");
 
 }
 
+function closeUpload(){
 
-function closeNoteModal(){
-
-  document
-    .getElementById("noteModal")
+  document.getElementById("uploadModal")
     .classList.remove("show");
 
-}
+  selectedImages = [];
 
+  document.getElementById("previewGrid").innerHTML = "";
 
-/* -------------------------
-   KAMERA
-------------------------- */
+  document.getElementById("noteTitle").value = "";
 
-function openCamera(){
-
-  document
-    .getElementById("cameraInput")
-    .click();
+  document.getElementById("noteContent").value = "";
 
 }
 
+function handleFiles(files){
 
-/* -------------------------
-   GALERIE
-------------------------- */
-
-function openGallery(){
-
-  document
-    .getElementById("galleryInput")
-    .click();
-
-}
-
-
-/* -------------------------
-   DATEI
-------------------------- */
-
-function openFilePicker(){
-
-  document
-    .getElementById("fileInput")
-    .click();
-
-}
-
-
-/* -------------------------
-   FOTO / DATEI VERARBEITEN
-------------------------- */
-
-function handleNoteImages(event){
-
-  const files = Array.from(event.target.files || []);
-
-  if(!files.length){
-    return;
-  }
-
-  files.forEach(function(file){
+  Array.from(files).forEach(file=>{
 
     if(file.type.startsWith("image/")){
 
@@ -1153,121 +2011,108 @@ function handleNoteImages(event){
 
       reader.onload = function(e){
 
-        const imageData = e.target.result;
+        selectedImages.push({
+          name:file.name,
+          data:e.target.result
+        });
 
-        selectedImages.push(imageData);
-
-        displayImagePreview(
-          imageData,
-          selectedImages.length - 1
-        );
+        renderPreviews();
 
       };
 
       reader.readAsDataURL(file);
 
-    }else if(file.type === "application/pdf"){
+    }else{
 
-      showToast("📄 PDF wurde ausgewählt.");
+      selectedImages.push({
+        name:file.name,
+        data:null,
+        pdf:true
+      });
+
+      renderPreviews();
 
     }
 
   });
 
-  showToast(
-    files.length === 1
-      ? "📸 Foto wurde hinzugefügt!"
-      : `📸 ${files.length} Fotos wurden hinzugefügt!`
-  );
+}
 
-  // Input zurücksetzen, damit dasselbe Foto erneut gewählt werden kann
-  event.target.value = "";
+function renderPreviews(){
+
+  const grid = document.getElementById("previewGrid");
+
+  grid.innerHTML = "";
+
+  selectedImages.forEach((image,index)=>{
+
+    const div = document.createElement("div");
+
+    div.className = "preview";
+
+    if(image.data){
+
+      div.innerHTML = 
+        <img src="${image.data}" alt="">
+        <button onclick="removeImage(${index})">×</button>
+      ;
+
+    }else{
+
+      div.innerHTML = 
+        <div style="
+          height:100%;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          flex-direction:column;
+          gap:5px;
+          font-size:12px;
+        ">
+          📄
+          <span>${escapeHTML(image.name)}</span>
+        </div>
+        <button onclick="removeImage(${index})">×</button>
+      ;
+
+    }
+
+    grid.appendChild(div);
+
+  });
 
 }
 
+function removeImage(index){
 
-/* -------------------------
-   FOTO-VORSCHAU
-------------------------- */
+  selectedImages.splice(index,1);
 
-function displayImagePreview(imageData,index){
-
-  const preview =
-    document.getElementById("filePreview");
-
-  const wrapper =
-    document.createElement("div");
-
-  wrapper.className = "preview-item";
-
-  wrapper.dataset.index = index;
-
-  const img =
-    document.createElement("img");
-
-  img.src = imageData;
-
-  const removeButton =
-    document.createElement("button");
-
-  removeButton.className = "remove-photo";
-
-  removeButton.textContent = "×";
-
-  removeButton.onclick = function(){
-
-    removeImage(index,wrapper);
-
-  };
-
-  wrapper.appendChild(img);
-
-  wrapper.appendChild(removeButton);
-
-  preview.appendChild(wrapper);
+  renderPreviews();
 
 }
 
-
-/* -------------------------
-   FOTO LÖSCHEN
-------------------------- */
-
-function removeImage(index,wrapper){
-
-  selectedImages[index] = null;
-
-  wrapper.remove();
-
-  showToast("Foto entfernt.");
-
-}
-
-
-/* -------------------------
-   SPEICHERN
-------------------------- */
+/* =========================================
+   NOTES
+========================================= */
 
 function saveNote(){
 
   const title =
-    document.getElementById("noteTitle")
-      .value.trim();
+    document.getElementById("noteTitle").value.trim();
+
+  const subject =
+    document.getElementById("noteSubject").value;
 
   const content =
-    document.getElementById("noteContent")
-      .value.trim();
+    document.getElementById("noteContent").value.trim();
 
   if(!title){
 
-    showToast("Bitte gib deinem Lernzettel einen Titel.");
+    showToast("Bitte gib einen Titel ein.");
 
     return;
 
   }
-
-  const images =
-    selectedImages.filter(Boolean);
 
   const note = {
 
@@ -1275,129 +2120,222 @@ function saveNote(){
 
     title:title,
 
+    subject:subject,
+
     content:content,
 
-    images:images,
+    images:selectedImages,
+
+    progress:0,
 
     createdAt:new Date().toISOString()
 
   };
 
-
-  let notes =
-    JSON.parse(
-      localStorage.getItem("studysnap_notes") || "[]"
-    );
-
   notes.unshift(note);
 
-  localStorage.setItem(
-    "studysnap_notes",
-    JSON.stringify(notes)
+  saveData();
+
+  addActivity(
+    "📚",
+    "${title}" wurde gespeichert.,
+    "Gerade eben"
   );
 
+  closeUpload();
 
-  addNoteToScreen(note);
+  renderNotes();
 
+  renderDashboard();
 
-  document.getElementById("noteTitle").value = "";
-
-  document.getElementById("noteContent").value = "";
-
-  document.getElementById("filePreview").innerHTML = "";
-
-  selectedImages = [];
-
-
-  closeNoteModal();
-
-  showToast("✅ Lernzettel wurde gespeichert!");
+  showToast("Lernzettel gespeichert ✓");
 
 }
 
+function renderNotes(){
 
-/* -------------------------
-   LERNZETTEL AUF STARTSEITE
-------------------------- */
+  const container =
+    document.getElementById("notesList");
 
-function addNoteToScreen(note){
+  if(!notes.length){
 
-  const grid =
-    document.getElementById("notesGrid");
+    container.innerHTML = 
+      <div class="card empty" style="grid-column:1/-1">
+        <div class="empty-icon">📚</div>
+        <strong>Noch keine Lernzettel</strong>
+        <p style="margin-top:5px">
+          Füge deinen ersten Lernzettel hinzu.
+        </p>
+      </div>
+    ;
 
-  const card =
-    document.createElement("div");
-
-  card.className =
-    "note-card searchable-note";
-
-
-  let imageHTML = "📚";
-
-  if(note.images && note.images.length){
-
-    imageHTML =
-      `<img src="${note.images[0]}"
-      style="
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        border-radius:12px;
-      ">`;
+    return;
 
   }
 
+  container.innerHTML = notes.map(note=>`
 
-  card.innerHTML = `
+    <div class="card note-card">
 
-    <div
-      class="note-icon"
-      style="overflow:hidden;"
-    >
-      ${imageHTML}
+      <div class="note-top">
+
+        <div class="subject-icon">
+          ${getSubjectIcon(note.subject)}
+        </div>
+
+        <button
+          class="danger-btn"
+          onclick="deleteNote(${note.id})"
+        >
+          Löschen
+        </button>
+
+      </div>
+
+      <h3>${escapeHTML(note.title)}</h3>
+
+      <p>
+        ${escapeHTML(note.subject || "Lernstoff")}
+      </p>
+
+      ${
+        note.content
+        ?
+        <p style="margin-top:9px;line-height:1.5">
+          ${escapeHTML(note.content)}
+        </p>
+        :
+        ""
+      }
+
+      <div class="progress-bar">
+        <div
+          class="progress-fill"
+          style="width:${note.progress || 0}%"
+        ></div>
+      </div>
+
+      <div class="note-footer">
+        <span>${note.images?.length || 0} Datei(en)</span>
+        <span>${note.progress || 0}%</span>
+      </div>
+
     </div>
 
-    <h3>${escapeHTML(note.title)}</h3>
-
-    <p>
-      ${note.images ? note.images.length : 0} Foto(s)
-    </p>
-
-    <div class="note-progress">
-      <div style="width:0%;"></div>
-    </div>
-
-  `;
-
-
-  grid.prepend(card);
+  `).join("");
 
 }
 
+function deleteNote(id){
 
-/* -------------------------
-   GESPEICHERTE LERNZETTEL LADEN
-------------------------- */
+  if(!confirm("Diesen Lernzettel wirklich löschen?")){
+    return;
+  }
 
-function loadSavedNotes(){
+  notes = notes.filter(note=>note.id!==id);
 
-  const notes =
-    JSON.parse(
-      localStorage.getItem("studysnap_notes") || "[]"
-    );
+  saveData();
 
-  notes.reverse().forEach(function(note){
+  renderNotes();
 
-    addNoteToScreen(note);
+  renderDashboard();
 
-  });
+  showToast("Lernzettel gelöscht");
 
 }
 
+/* =========================================
+   DASHBOARD
+========================================= */
 
-/* -------------------------
-   SUCHE
-------------------------- */
+function renderDashboard(){
+
+  document.getElementById("statNotes").textContent =
+    notes.length;
+
+  document.getElementById("statQuiz").textContent =
+    stats.quiz;
+
+  document.getElementById("statStreak").textContent =
+    stats.streak;
+
+  document.getElementById("statXP").textContent =
+    stats.xp;
+
+  const progress =
+    notes.length
+    ?
+    Math.round(
+      notes.reduce((sum,n)=>sum+(n.progress||0),0)
+      / notes.length
+    )
+    :
+    0;
+
+  document.getElementById("overallProgress").textContent =
+    progress + "%";
+
+  document.getElementById("dailyMinutes").textContent =
+    ${stats.minutes} / 45 Min.;
+
+  const dailyPercent =
+    Math.min((stats.minutes/45)*100,100);
+
+  document.getElementById("dailyProgress").style.width =
+    dailyPercent + "%";
+
+  const container =
+    document.getElementById("dashboardNotes");
+
+  if(!notes.length){
+
+    container.innerHTML = 
+      <div class="card empty" style="grid-column:1/-1">
+        <div class="empty-icon">✨</div>
+        <strong>Dein erster Lernzettel wartet.</strong>
+        <p style="margin-top:5px">
+          Lade deine Unterlagen hoch und starte mit StudySnap.
+        </p>
+      </div>
+    ;
+
+    return;
+
+  }
+
+  container.innerHTML = notes.slice(0,3).map(note=>`
+
+    <div class="card note-card">
+
+      <div class="subject-icon">
+        ${getSubjectIcon(note.subject)}
+      </div>
+
+      <h3>${escapeHTML(note.title)}</h3>
+
+      <p>${escapeHTML(note.subject || "")}</p>
+
+      <div class="progress-bar">
+        <div
+          class="progress-fill"
+          style="width:${note.progress||0}%"
+        ></div>
+      </div>
+
+      <div class="note-footer">
+        <span>${note.images?.length||0} Dateien</span>
+        <span>${note.progress||0}%</span>
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+/* =========================================
+   SEARCH
+========================================= */
 
 function searchNotes(){
 
@@ -1407,112 +2345,1067 @@ function searchNotes(){
       .toLowerCase()
       .trim();
 
-  const notes =
-    document.querySelectorAll(".searchable-note");
+  const container =
+    document.getElementById("dashboardNotes");
 
-  notes.forEach(function(note){
+  const filtered =
+    notes.filter(note=>
+      note.title.toLowerCase().includes(query) ||
+      (note.subject||"").toLowerCase().includes(query) ||
+      (note.content||"").toLowerCase().includes(query)
+    );
 
-    const text =
-      note.textContent.toLowerCase();
+  if(!filtered.length){
 
-    note.style.display =
-      text.includes(query)
-        ? ""
-        : "none";
+    container.innerHTML = 
+      <div class="card empty" style="grid-column:1/-1">
+        🔎 Keine passenden Lernzettel gefunden.
+      </div>
+    ;
 
-  });
-
-}
-
-
-/* -------------------------
-   DATEI AUS HAUPT-UPLOAD
-------------------------- */
-
-function handleFile(event){
-
-  const files =
-    Array.from(event.target.files || []);
-
-  if(!files.length){
     return;
+
   }
 
-  openNoteModal();
+  container.innerHTML = filtered.map(note=>`
 
-  files.forEach(function(file){
+    <div class="card note-card">
 
-    if(file.type.startsWith("image/")){
+      <div class="subject-icon">
+        ${getSubjectIcon(note.subject)}
+      </div>
 
-      const reader =
-        new FileReader();
+      <h3>${escapeHTML(note.title)}</h3>
 
-      reader.onload =
-        function(e){
+      <p>${escapeHTML(note.subject||"")}</p>
 
-          selectedImages.push(
-            e.target.result
-          );
+      <div class="progress-bar">
+        <div
+          class="progress-fill"
+          style="width:${note.progress||0}%"
+        ></div>
+      </div>
 
-          displayImagePreview(
-            e.target.result,
-            selectedImages.length - 1
-          );
+    </div>
 
-        };
+  `).join("");
 
-      reader.readAsDataURL(file);
+}
 
+/* =========================================
+   QUIZ
+========================================= */
+
+let quizQuestions = [];
+
+let currentQuizQuestion = 0;
+
+let quizScore = 0;
+
+function startQuiz(){
+
+  const subject =
+    document.getElementById("quizSubject").value;
+
+  const topic =
+    document.getElementById("quizTopic").value.trim()
+    || "dein Thema";
+
+  quizQuestions = [
+
+    {
+      question:Was ist eine wichtige Sache, die du über ${topic} wissen solltest?,
+      answers:[
+        "Eine wichtige Definition oder Grundidee",
+        "Nichts davon",
+        "Nur das Datum",
+        "Eine zufällige Information"
+      ],
+      correct:0
+    },
+
+    {
+      question:Welcher Lernweg hilft meistens beim Verständnis von ${topic}?,
+      answers:[
+        "Nur durchlesen",
+        "Fragen beantworten und wiederholen",
+        "Gar nicht lernen",
+        "Nur die Überschrift anschauen"
+      ],
+      correct:1
+    },
+
+    {
+      question:Was solltest du vor einer Klassenarbeit zu ${topic} machen?,
+      answers:[
+        "Nur fünf Minuten lernen",
+        "Den Stoff wiederholen und dich selbst testen",
+        "Nichts",
+        "Nur das Heft anschauen"
+      ],
+      correct:1
     }
+
+  ];
+
+  currentQuizQuestion = 0;
+
+  quizScore = 0;
+
+  renderQuizQuestion();
+
+  showToast(${subject}-Quiz gestartet 🚀);
+
+}
+
+function renderQuizQuestion(){
+
+  const area =
+    document.getElementById("quizArea");
+
+  if(currentQuizQuestion >= quizQuestions.length){
+
+    stats.quiz++;
+
+    stats.xp += quizScore * 10 + 20;
+
+    saveData();
+
+    area.innerHTML = `
+
+      <div class="card" style="text-align:center">
+
+        <div style="font-size:45px">🏆</div>
+
+        <h2 style="margin-top:10px">
+          Quiz geschafft!
+        </h2>
+
+        <p style="color:var(--muted);margin-top:7px">
+          Du hast ${quizScore} von
+          ${quizQuestions.length} Fragen richtig.
+        </p>
+
+        <button
+          class="primary-btn"
+          style="margin-top:18px"
+          onclick="startQuiz()"
+        >
+          Noch einmal
+        </button>
+
+      </div>
+
+    `;
+
+    renderDashboard();
+
+    return;
+
+  }
+
+  const q = quizQuestions[currentQuizQuestion];
+
+  area.innerHTML = `
+
+    <div class="card">
+
+      <div style="color:var(--muted);font-size:12px">
+        Frage ${currentQuizQuestion+1}
+        von ${quizQuestions.length}
+      </div>
+
+      <h2 style="margin-top:12px;font-size:18px">
+        ${escapeHTML(q.question)}
+      </h2>
+
+      <div style="
+        display:grid;
+        gap:9px;
+        margin-top:20px
+      ">
+
+        ${q.answers.map((answer,index)=>`
+
+          <button
+            class="secondary-btn"
+            style="text-align:left"
+            onclick="answerQuiz(${index})"
+          >
+            ${escapeHTML(answer)}
+          </button>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+function answerQuiz(index){
+
+  const q = quizQuestions[currentQuizQuestion];
+
+  if(index===q.correct){
+
+    quizScore++;
+
+    showToast("Richtig! 🎉");
+
+  }else{
+
+    showToast("Fast! Weiter geht's 💪");
+
+  }
+
+  currentQuizQuestion++;
+
+  setTimeout(renderQuizQuestion,500);
+
+}
+
+/* =========================================
+   FLASHCARDS
+========================================= */
+
+let defaultFlashcards = [
+
+  {
+    q:"Was ist Lernen?",
+    a:"Lernen bedeutet, Wissen oder Fähigkeiten aufzubauen und zu festigen."
+  },
+
+  {
+    q:"Was hilft beim Wiederholen?",
+    a:"Aktives Abrufen, Üben und regelmäßige Wiederholung."
+  },
+
+  {
+    q:"Was ist eine Klassenarbeit?",
+    a:"Eine schriftliche oder praktische Leistungsüberprüfung in der Schule."
+  }
+
+];
+
+function startFlashcards(){
+
+  flashIndex = 0;
+
+  updateFlashcard();
+
+}
+
+function updateFlashcard(){
+
+  const card =
+    defaultFlashcards[flashIndex % defaultFlashcards.length];
+
+  document.getElementById("flashQuestion").textContent =
+    card.q;
+
+  document.getElementById("flashAnswer").textContent =
+    card.a;
+
+  document.getElementById("flashcard")
+    .classList.remove("flipped");
+
+}
+
+function flipCard(){
+
+  document.getElementById("flashcard")
+    .classList.toggle("flipped");
+
+}
+
+function answerCard(correct){
+
+  if(correct){
+
+    stats.xp += 5;
+
+  }
+
+  saveData();
+
+  flashIndex++;
+
+  updateFlashcard();
+
+  renderDashboard();
+
+}
+
+/* =========================================
+   VOCABULARY
+========================================= */
+
+function addVocabulary(){
+
+  const word =
+    document.getElementById("vocabWord").value.trim();
+
+  const translation =
+    document.getElementById("vocabTranslation").value.trim();
+
+  if(!word || !translation){
+
+    showToast("Bitte beide Felder ausfüllen.");
+
+    return;
+
+  }
+
+  vocabulary.push({
+    id:Date.now(),
+    word:word,
+    translation:translation
+  });
+
+  saveData();
+
+  document.getElementById("vocabWord").value = "";
+
+  document.getElementById("vocabTranslation").value = "";
+
+  renderVocabulary();
+
+  stats.xp += 5;
+
+  saveData();
+
+  showToast("Vokabel hinzugefügt ✓");
+
+}
+
+function renderVocabulary(){
+
+  const list =
+    document.getElementById("vocabList");
+
+  if(!vocabulary.length){
+
+    list.innerHTML = 
+      <div class="card empty">
+        🇬🇧 Noch keine Vokabeln.
+      </div>
+    ;
+
+    return;
+
+  }
+
+  list.innerHTML = vocabulary.map(item=>`
+
+    <div class="vocab-row">
+
+      <div class="vocab-word">
+        ${escapeHTML(item.word)}
+      </div>
+
+      <div class="vocab-translation">
+        ${escapeHTML(item.translation)}
+      </div>
+
+      <button
+        class="danger-btn"
+        onclick="deleteVocabulary(${item.id})"
+      >
+        Löschen
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+function deleteVocabulary(id){
+
+  vocabulary =
+    vocabulary.filter(item=>item.id!==id);
+
+  saveData();
+
+  renderVocabulary();
+
+}
+
+function startVocabularyCards(){
+
+  if(!vocabulary.length){
+
+    showToast("Füge zuerst Vokabeln hinzu.");
+
+    return;
+
+  }
+
+  vocabFlashIndex = 0;
+
+  renderVocabularyCard();
+
+}
+
+function renderVocabularyCard(){
+
+  const item =
+    vocabulary[vocabFlashIndex % vocabulary.length];
+
+  document.getElementById("vocabFlashArea").innerHTML = `
+
+    <div class="flashcard-wrap">
+
+      <div
+        class="flashcard"
+        id="vocabFlashcard"
+        onclick="flipVocabularyCard()"
+      >
+
+        <div class="flash-inner">
+
+          <div class="flash-face">
+            <small>Englisch</small>
+            <strong>${escapeHTML(item.word)}</strong>
+          </div>
+
+          <div class="flash-face flash-back">
+            <small>Deutsch</small>
+            <strong>${escapeHTML(item.translation)}</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="flash-buttons">
+
+        <button
+          class="secondary-btn"
+          onclick="nextVocabulary()"
+        >
+          Nächste →
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+function flipVocabularyCard(){
+
+  document.getElementById("vocabFlashcard")
+    .classList.toggle("flipped");
+
+}
+
+function nextVocabulary(){
+
+  vocabFlashIndex++;
+
+  renderVocabularyCard();
+
+}
+
+/* =========================================
+   QUESTIONS
+========================================= */
+
+function askStudySnap(){
+
+  const input =
+    document.getElementById("questionInput");
+
+  const question =
+    input.value.trim();
+
+  if(!question){
+
+    showToast("Schreibe zuerst eine Frage.");
+
+    return;
+
+  }
+
+  document.getElementById("questionAnswer").innerHTML = `
+
+    <div style="
+      background:#f5f3ff;
+      padding:15px;
+      border-radius:12px;
+    ">
+
+      <strong>🤖 StudySnap</strong>
+
+      <p style="
+        margin-top:8px;
+        color:#5f6170;
+        font-size:13px;
+        line-height:1.6
+      ">
+        Deine Frage wurde gespeichert. Die echte KI-Funktion
+        wird später deine Lernzettel analysieren und dir
+        eine genaue Antwort anhand deines Lernstoffs geben.
+      </p>
+
+      <small style="color:#999">
+        KI-Modul wird später verbunden.
+      </small>
+
+    </div>
+
+  `;
+
+  stats.xp += 2;
+
+  saveData();
+
+}
+
+/* =========================================
+   EXAMS
+========================================= */
+
+function addExam(){
+
+  const subject =
+    document.getElementById("examSubject").value.trim();
+
+  const topic =
+    document.getElementById("examTopic").value.trim();
+
+  const date =
+    document.getElementById("examDate").value;
+
+  const time =
+    document.getElementById("examTime").value;
+
+  const difficulty =
+    document.getElementById("examDifficulty").value;
+
+  if(!subject || !date){
+
+    showToast("Fach und Datum sind erforderlich.");
+
+    return;
+
+  }
+
+  exams.push({
+
+    id:Date.now(),
+
+    subject:subject,
+
+    topic:topic,
+
+    date:date,
+
+    time:time,
+
+    difficulty:difficulty
 
   });
 
-  showToast(
-    files.length === 1
-      ? "📸 Foto wurde hinzugefügt!"
-      : `📸 ${files.length} Fotos wurden hinzugefügt!`
+  exams.sort((a,b)=>
+    new Date(a.date+"T"+(a.time||"23:59"))
+    -
+    new Date(b.date+"T"+(b.time||"23:59"))
   );
 
-  event.target.value = "";
+  saveData();
+
+  document.getElementById("examSubject").value = "";
+
+  document.getElementById("examTopic").value = "";
+
+  document.getElementById("examDate").value = "";
+
+  document.getElementById("examTime").value = "";
+
+  renderExams();
+
+  showToast("Klassenarbeit gespeichert 📅");
 
 }
 
+function renderExams(){
 
-/* -------------------------
-   TOOLS
-------------------------- */
+  const list =
+    document.getElementById("examList");
 
-function openTool(tool){
+  if(!exams.length){
 
-  showToast(
-    tool + " wird vorbereitet..."
+    list.innerHTML = 
+      <div class="card empty" style="grid-column:1/-1">
+        <div class="empty-icon">📅</div>
+        <strong>Keine Klassenarbeiten eingetragen</strong>
+        <p style="margin-top:5px">
+          Füge deinen nächsten Test hinzu.
+        </p>
+      </div>
+    ;
+
+    return;
+
+  }
+
+  list.innerHTML = exams.map(exam=>{
+
+    const countdown =
+      getCountdown(exam);
+
+    return `
+
+      <div class="card exam-card">
+
+        <div class="exam-date">
+          ${formatDate(exam.date)}
+          ${exam.time ? " • "+exam.time+" Uhr" : ""}
+        </div>
+
+        <h3>
+          ${escapeHTML(exam.subject)}
+        </h3>
+
+        <div class="exam-topic">
+          ${escapeHTML(exam.topic || "Kein Thema angegeben")}
+        </div>
+
+        <div class="countdown">
+          ${countdown}
+        </div>
+
+        <div class="exam-actions">
+
+          <span style="
+            color:var(--muted);
+            font-size:11px
+          ">
+            ${escapeHTML(exam.difficulty)}
+          </span>
+
+          <button
+            class="danger-btn"
+            onclick="deleteExam(${exam.id})"
+          >
+            Löschen
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+}
+
+function getCountdown(exam){
+
+  const target =
+    new Date(
+      exam.date+"T"+(exam.time || "08:00")
+    );
+
+  const now =
+    new Date();
+
+  const diff =
+    target-now;
+
+  if(diff<=0){
+
+    return "Heute / bereits vorbei";
+
+  }
+
+  const days =
+    Math.floor(diff/(1000*60*60*24));
+
+  const hours =
+    Math.floor(
+      (diff%(1000*60*60*24))
+      /(1000*60*60)
+    );
+
+  if(days===0){
+
+    return Noch ${hours} Stunde(n);
+
+  }
+
+  if(days===1){
+
+    return "Noch 1 Tag";
+
+  }
+
+  return Noch ${days} Tage;
+
+}
+
+function deleteExam(id){
+
+  exams =
+    exams.filter(exam=>exam.id!==id);
+
+  saveData();
+
+  renderExams();
+
+}
+
+/* =========================================
+   TASKS
+========================================= */
+
+function addTask(){
+
+  const input =
+    document.getElementById("taskInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+
+    showToast("Schreibe zuerst eine Aufgabe.");
+
+    return;
+
+  }
+
+  tasks.push({
+
+    id:Date.now(),
+
+    text:text,
+
+    done:false
+
+  });
+
+  saveData();
+
+  input.value = "";
+
+  renderTasks();
+
+  stats.xp += 3;
+
+  saveData();
+
+}
+
+function renderTasks(){
+
+  const list =
+    document.getElementById("taskList");
+
+  if(!tasks.length){
+
+    list.innerHTML = 
+      <div class="empty">
+        ✓ Keine offenen Aufgaben.
+      </div>
+    ;
+
+    return;
+
+  }
+
+  list.innerHTML = tasks.map(task=>`
+
+    <div class="todo-row ${task.done ? "done" : ""}">
+
+      <input
+        type="checkbox"
+        ${task.done ? "checked" : ""}
+        onchange="toggleTask(${task.id})"
+      >
+
+      <span>
+        ${escapeHTML(task.text)}
+      </span>
+
+      <button
+        class="todo-delete"
+        onclick="deleteTask(${task.id})"
+      >
+        ✕
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+function toggleTask(id){
+
+  const task =
+    tasks.find(t=>t.id===id);
+
+  if(task){
+
+    task.done=!task.done;
+
+  }
+
+  saveData();
+
+  renderTasks();
+
+}
+
+function deleteTask(id){
+
+  tasks =
+    tasks.filter(task=>task.id!==id);
+
+  saveData();
+
+  renderTasks();
+
+}
+
+/* =========================================
+   TIMER
+========================================= */
+
+let timerSeconds = 25*60;
+
+let timerRunning = false;
+
+let timerInterval = null;
+
+function updateTimerDisplay(){
+
+  const minutes =
+    Math.floor(timerSeconds/60);
+
+  const seconds =
+    timerSeconds%60;
+
+  document.getElementById("timerDisplay")
+    .textContent =
+      ${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")};
+
+}
+
+function setTimer(minutes){
+
+  clearInterval(timerInterval);
+
+  timerRunning=false;
+
+  timerSeconds=minutes*60;
+
+  document.getElementById("timerButton")
+    .textContent="▶ Start";
+
+  updateTimerDisplay();
+
+}
+
+function toggleTimer(){
+
+  if(timerRunning){
+
+    clearInterval(timerInterval);
+
+    timerRunning=false;
+
+    document.getElementById("timerButton")
+      .textContent="▶ Start";
+
+    return;
+
+  }
+
+  timerRunning=true;
+
+  document.getElementById("timerButton")
+    .textContent="⏸ Pause";
+
+  timerInterval =
+    setInterval(()=>{
+
+      if(timerSeconds<=0){
+
+        clearInterval(timerInterval);
+
+        timerRunning=false;
+
+        document.getElementById("timerButton")
+          .textContent="▶ Start";
+
+        stats.minutes += 25;
+
+        stats.xp += 25;
+
+        saveData();
+
+        renderDashboard();
+
+        showToast("Lernzeit geschafft! 🎉");
+
+        return;
+
+      }
+
+      timerSeconds--;
+
+      updateTimerDisplay();
+
+    },1000);
+
+}
+
+function resetTimer(){
+
+  clearInterval(timerInterval);
+
+  timerRunning=false;
+
+  timerSeconds=25*60;
+
+  document.getElementById("timerButton")
+    .textContent="▶ Start";
+
+  updateTimerDisplay();
+
+}
+
+/* =========================================
+   ACTIVITY
+========================================= */
+
+function addActivity(icon,text,time){
+
+  const list =
+    document.getElementById("activityList");
+
+  if(!list) return;
+
+  const item =
+    document.createElement("div");
+
+  item.className="activity";
+
+  item.innerHTML=`
+
+    <div class="activity-icon">
+      ${icon}
+    </div>
+
+    <div>
+      <strong>${escapeHTML(text)}</strong>
+      <small>${escapeHTML(time)}</small>
+    </div>
+
+  `;
+
+  list.prepend(item);
+
+  while(list.children.length>5){
+
+    list.removeChild(list.lastChild);
+
+  }
+
+}
+
+/* =========================================
+   SETTINGS
+========================================= */
+
+function saveSettings(){
+
+  const name =
+    document.getElementById("profileNameInput")
+      .value.trim();
+
+  if(name){
+
+    localStorage.setItem(
+      "studysnap_profile_name",
+      name
+    );
+
+  }
+
+  showToast("Einstellungen gespeichert ✓");
+
+}
+
+function loadSettings(){
+
+  const name =
+    localStorage.getItem(
+      "studysnap_profile_name"
+    );
+
+  if(name){
+
+    document.getElementById("profileNameInput")
+      .value=name;
+
+  }
+
+}
+
+/* =========================================
+   HELPERS
+========================================= */
+
+function getSubjectIcon(subject){
+
+  const icons={
+
+    "Biologie":"🧬",
+    "Mathe":"🧮",
+    "Englisch":"🇬🇧",
+    "Deutsch":"📖",
+    "Geschichte":"🏛️",
+    "Physik":"⚡",
+    "Chemie":"🧪"
+
+  };
+
+  return icons[subject] || "📚";
+
+}
+
+function formatDate(date){
+
+  if(!date) return "";
+
+  const d =
+    new Date(date+"T00:00:00");
+
+  return d.toLocaleDateString(
+    "de-DE",
+    {
+      day:"2-digit",
+      month:"2-digit",
+      year:"numeric"
+    }
   );
 
 }
-
-
-/* -------------------------
-   ALLE LERNZETTEL
-------------------------- */
-
-function scrollToNotes(){
-
-  document
-    .getElementById("notesSection")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
-
-}
-
-
-/* -------------------------
-   HTML SICHER MACHEN
-------------------------- */
 
 function escapeHTML(text){
 
-  return text
+  return String(text ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -1521,31 +3414,64 @@ function escapeHTML(text){
 
 }
 
+function clearAllData(){
 
-/* -------------------------
-   MODAL AUSSERHALB SCHLIESSEN
-------------------------- */
+  if(!confirm(
+    "Wirklich ALLE StudySnap-Daten auf diesem Gerät löschen?"
+  )){
+    return;  
+}
 
-document
-  .getElementById("noteModal")
-  .addEventListener("click",function(event){
+localStorage.removeItem("studysnap_notes");
+  localStorage.removeItem("studysnap_exams");
+  localStorage.removeItem("studysnap_vocab");
+  localStorage.removeItem("studysnap_tasks");
+  localStorage.removeItem("studysnap_stats");
+  localStorage.removeItem("studysnap_profile_name");
 
-    if(event.target === this){
+  location.reload();
 
-      closeNoteModal();
+}
 
-    }
+/* =========================================
+   INITIALIZE
+========================================= */
 
-  });
+renderDashboard();
 
+renderNotes();
 
-/* -------------------------
-   START
-------------------------- */
+renderVocabulary();
 
-loadSavedNotes();
+renderExams();
+
+renderTasks();
+
+loadSettings();
+
+updateTimerDisplay();
+
+startFlashcards();
+
+/* Update countdowns every minute */
+
+setInterval(()=>{
+
+  if(
+    document
+      .getElementById("exams")
+      .classList
+      .contains("active")
+  ){
+
+    renderExams();
+
+  }
+
+},60000);
 
 </script>
 
 </body>
 </html>
+
