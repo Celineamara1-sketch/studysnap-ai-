@@ -4,7 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StudySnap AI</title>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://lmfshplhqzxjqstpgecx.supabase.co";
+const SUPABASE_KEY = sb_publishable_RTNwgHuor8eIPcCPa-V1ZA_SAAKiOlx
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
 <style>
 *{
   box-sizing:border-box;
